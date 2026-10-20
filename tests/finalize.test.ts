@@ -47,4 +47,11 @@ describe('production asset finalization', () => {
     rmSync(join(directory, 'public', 'media'), { recursive: true });
     expect(() => finalize(directory)).toThrow();
   });
+
+  it('excludes camera and editing source videos from deployment', () => {
+    const directory = fixture();
+    writeFileSync(join(directory, 'public', 'SHOCASE-VIDEOS', 'source.mov'), 'original footage');
+    finalize(directory);
+    expect(() => readFileSync(join(directory, 'dist', 'SHOCASE-VIDEOS', 'source.mov'))).toThrow();
+  });
 });

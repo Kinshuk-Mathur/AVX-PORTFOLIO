@@ -73,6 +73,6 @@ export default function VideoPlayer({ title, src, poster, onClose }: Props) {
       </div>
       {error && <p className="player-error" role="status">{error} <a href={src} target="_blank" rel="noopener noreferrer">Open video ↗</a></p>}
     </div>
-    <p className="player-caption">AVX STUDIO DEMO <span>Sound starts only when you press play.</span></p>
+    <p className="player-caption">AVX / EDITING SHOWCASE <span>Sound starts only when you press play.</span></p>
   </Modal>;
 }

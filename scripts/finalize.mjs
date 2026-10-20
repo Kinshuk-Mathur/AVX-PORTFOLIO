@@ -2,7 +2,7 @@ import { access, cp } from 'node:fs/promises';
 import { basename } from 'node:path';
 
 // Exclude reference artwork, editable logo source, and macOS AppleDouble metadata.
-for (const path of ['media', 'projects', 'SHOCASE-VIDEOS', 'netlify-forms.html', 'thank-you', '404.html']) {
+for (const path of ['media', 'projects', 'netlify-forms.html', 'thank-you', '404.html']) {
   // Git does not retain empty directories. Projects are optional until work is added.
   if (path === 'projects') {
     try {

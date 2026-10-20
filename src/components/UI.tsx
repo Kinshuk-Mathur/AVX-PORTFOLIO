@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
 import { useRef, type PropsWithChildren, type MouseEvent } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 import { useMediaQuery, useReducedMotion } from '../hooks/useMediaQuery';
+
+const MotionLink = motion.create(Link);
 
 export function Logo({ className = '' }: { className?: string }) {
   return <img className={`logo ${className}`} src="/media/avx-logo.webp" alt="AVX Studios" width="600" height="233" />;
@@ -24,9 +27,9 @@ export function MagneticLink({ children, href, className = '' }: PropsWithChildr
     x.set((event.clientX - rect.left - rect.width / 2) * 0.12);
     y.set((event.clientY - rect.top - rect.height / 2) * 0.16);
   };
-  return <motion.a ref={ref} href={href} className={`button ${className}`} style={{ x: sx, y: sy }}
+  return <MotionLink ref={ref} to={href} className={`button ${className}`} style={{ x: sx, y: sy }}
     onMouseMove={move} onMouseLeave={() => { x.set(0); y.set(0); }}
     onBlur={() => { x.set(0); y.set(0); }}>
     <span>{children}</span><ArrowUpRight size={18} aria-hidden="true" />
-  </motion.a>;
+  </MotionLink>;
 }

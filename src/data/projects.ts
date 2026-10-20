@@ -1,50 +1,34 @@
 import { validateProjects, type Project } from '../lib/content';
+import videos from './video-manifest.json';
 
-// Add only approved, real client or studio projects to this collection.
+// Only approved commissioned projects belong here. Supplied samples stay separate.
 export const publishedProjects: Project[] = validateProjects([]);
+export const videoSamples = videos;
+export const websiteScreens = [
+  { image: '/media/website-home.webp', alt: 'AVX Studios home page with Art. Visual. Experience. typography', title: 'The first impression.', label: 'AVX / Home', url: '/home' },
+  { image: '/media/website-about.webp', alt: 'AVX Studios About page and the original studio identity', title: 'The thinking behind it.', label: 'AVX / About', url: '/about' },
+  { image: '/media/website-services.webp', alt: 'AVX Studios Services page with video and website design panels', title: 'Craft, in every detail.', label: 'AVX / Services', url: '/services' },
+];
 
-// Studio experiments are intentionally separate from commissioned portfolio work.
-// The supplied MP4 was approved by the owner for use as a clearly labeled studio demo.
 export const demonstrationProjects: Project[] = validateProjects([
+  ...videos.map(video => ({
+    id: video.id, slug: video.id, title: video.title, category: 'Video Editing' as const,
+    description: video.description, thumbnail: video.thumbnail, previewVideo: video.previewVideo,
+    fullVideoUrl: video.fullVideoUrl, services: video.services, featured: true, gallery: [], status: 'demo' as const,
+  })),
   {
-    id: 'avx-motion-study',
-    slug: 'avx-motion-study',
-    title: 'Ideas, set in motion.',
-    category: 'Video Editing',
-    description: 'A short AVX studio demo exploring animated interfaces, graphic transitions, and the rhythm of a digital product story. An in-house experiment, not a commissioned client project.',
-    thumbnail: '/media/avx-demo-poster.webp',
-    previewVideo: '/media/avx-demo-preview.mp4',
-    fullVideoUrl: '/SHOCASE-VIDEOS/AVX%20SAAS%20V1.mp4',
-    services: ['Motion graphics', 'Product storytelling', 'Video editing'],
-    featured: true,
-    gallery: [],
-    highlights: ['Animated interface sequences', 'Graphic transitions and pacing', 'A compact, 14-second visual study'],
-    status: 'demo',
-  },
-  {
-    id: 'avx-web-experience',
-    slug: 'avx-web-experience',
-    title: 'A studio. An experience.',
-    category: 'Websites',
-    description: 'Our own corner of the internet. An AVX studio project bringing oversized typography, responsive layouts, and interactive motion together. Explore the design direction and the website you are visiting.',
-    thumbnail: '/media/avx-website.webp',
-    websiteUrl: '/#home',
+    id: 'avx-web-experience', slug: 'avx-web-experience', title: 'A studio. An experience.', category: 'Websites',
+    description: 'Our own corner of the internet. An AVX studio project bringing oversized typography, responsive layouts, and interactive motion together. Three views of one connected website: the studio you are visiting.',
+    thumbnail: websiteScreens[0].image, websiteUrl: '/home',
     services: ['Art direction', 'Web design', 'React development', 'Interaction design'],
-    featured: true,
-    gallery: [{ src: '/media/avx-website.webp', alt: 'The AVX Studios website, with oversized white typography on an atmospheric red and black background' }],
-    highlights: ['An interactive Grainient surface', 'Accessible, responsive compositions', 'A carefully coordinated motion system'],
-    status: 'demo',
+    featured: true, gallery: websiteScreens.map(({ image, alt }) => ({ src: image, alt })),
+    highlights: ['An interactive Grainient surface', 'Dedicated pages with accessible navigation', 'Video and website carousels, tuned for each medium'], status: 'demo',
   },
 ]);
 
 export const allProjects = validateProjects([...publishedProjects, ...demonstrationProjects]);
-
-// Add an approved showreel here when ready. The demo remains clearly labeled meanwhile.
+const firstVideo = videos[0];
 export const showreel = {
-  title: 'AVX / Motion study',
-  label: 'Studio demo · 00:14',
-  isDemo: true,
-  poster: '/media/avx-demo-poster.webp',
-  preview: '/media/avx-demo-preview.mp4',
-  video: '/SHOCASE-VIDEOS/AVX%20SAAS%20V1.mp4',
+  title: 'AVX / Motion study', label: 'Studio demo · 00:14', isDemo: true,
+  poster: firstVideo.thumbnail, preview: firstVideo.previewVideo, video: firstVideo.fullVideoUrl,
 };

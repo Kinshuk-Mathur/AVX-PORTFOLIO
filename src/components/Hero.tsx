@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useLayoutEffect, useRef } from 'react';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
@@ -34,7 +35,7 @@ export function Hero() {
         </div>
       </div>
       <div className="hero-bottom">
-        <div className="hero-actions"><MagneticLink href="#work" className="button-white">Explore Our Work</MagneticLink><a href="#contact" className="text-link">Start a Project <ArrowUpRight size={17} /></a></div>
+        <div className="hero-actions"><MagneticLink href="/work" className="button-white">Explore Our Work</MagneticLink><Link to="/contact" className="text-link">Start a Project <ArrowUpRight size={17} /></Link></div>
         <a className="scroll-cue mono" href="#showreel"><span>SCROLL TO EXPLORE</span><ArrowDown size={20} /></a>
       </div>
     </div>

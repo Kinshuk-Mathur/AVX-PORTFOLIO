@@ -1,0 +1,146 @@
+[
+  {
+    "id": "avx-motion-study",
+    "source": "AVX SAAS V1.mp4",
+    "title": "Ideas, set in motion.",
+    "subtitle": "Interface motion / Studio demo",
+    "description": "Animated interfaces and graphic transitions, cut into a compact product story. An AVX studio demo.",
+    "services": [
+      "Motion graphics",
+      "Video editing"
+    ],
+    "posterTime": 5.4,
+    "duration": 13.952,
+    "width": 1920,
+    "height": 1080,
+    "thumbnail": "/media/showcase/avx-motion-study.webp",
+    "previewVideo": "/media/showcase/avx-motion-study-preview.mp4",
+    "fullVideoUrl": "/media/showcase/avx-motion-study.mp4"
+  },
+  {
+    "id": "type-in-motion",
+    "source": "AVX STEVE SAMPLE 2nd.mov",
+    "title": "Words with a pulse.",
+    "subtitle": "Kinetic typography / Editing sample",
+    "description": "A typography-led editing sample exploring pace, emphasis, and the relationship between words and motion.",
+    "services": [
+      "Kinetic typography",
+      "Video editing"
+    ],
+    "posterTime": 10,
+    "duration": 45.2,
+    "width": 1920,
+    "height": 1080,
+    "thumbnail": "/media/showcase/type-in-motion.webp",
+    "previewVideo": "/media/showcase/type-in-motion-preview.mp4",
+    "fullVideoUrl": "/media/showcase/type-in-motion.mp4"
+  },
+  {
+    "id": "history-in-focus",
+    "source": "NITISH.mov",
+    "title": "History, in focus.",
+    "subtitle": "Visual storytelling / Editing sample",
+    "description": "A short historical storytelling edit, combining cut-out imagery, text, and layered compositions.",
+    "services": [
+      "Visual storytelling",
+      "Compositing"
+    ],
+    "posterTime": 3,
+    "duration": 11.666667,
+    "width": 1920,
+    "height": 1080,
+    "thumbnail": "/media/showcase/history-in-focus.webp",
+    "previewVideo": "/media/showcase/history-in-focus-preview.mp4",
+    "fullVideoUrl": "/media/showcase/history-in-focus.mp4"
+  },
+  {
+    "id": "synapse-launch-study",
+    "source": "SYNAPSE 1st Launch promo.mp4",
+    "title": "Synapse / Launch study.",
+    "subtitle": "Product promo / Editing sample",
+    "description": "A supplied promotional editing sample for a study app, presented as a motion study. No client relationship or product results are claimed.",
+    "services": [
+      "Product storytelling",
+      "Motion graphics"
+    ],
+    "posterTime": 12,
+    "duration": 57.583333,
+    "width": 1280,
+    "height": 720,
+    "thumbnail": "/media/showcase/synapse-launch-study.webp",
+    "previewVideo": "/media/showcase/synapse-launch-study-preview.mp4",
+    "fullVideoUrl": "/media/showcase/synapse-launch-study.mp4"
+  },
+  {
+    "id": "food-in-motion",
+    "source": "food#1.mov",
+    "title": "A little food theatre.",
+    "subtitle": "Food animation / Editing sample",
+    "description": "A short food animation sample that turns ingredients into a moving composition.",
+    "services": [
+      "Product animation",
+      "Compositing"
+    ],
+    "posterTime": 2,
+    "duration": 4.99,
+    "width": 1920,
+    "height": 1080,
+    "thumbnail": "/media/showcase/food-in-motion.webp",
+    "previewVideo": "/media/showcase/food-in-motion-preview.mp4",
+    "fullVideoUrl": "/media/showcase/food-in-motion.mp4"
+  },
+  {
+    "id": "moments-in-time",
+    "source": "port1.mov",
+    "title": "A moment in time.",
+    "subtitle": "Graphic motion / Editing sample",
+    "description": "A compact motion sample built around graphic elements and precise transitions.",
+    "services": [
+      "Motion graphics",
+      "Video editing"
+    ],
+    "posterTime": 3,
+    "duration": 7.5,
+    "width": 1920,
+    "height": 1080,
+    "thumbnail": "/media/showcase/moments-in-time.webp",
+    "previewVideo": "/media/showcase/moments-in-time-preview.mp4",
+    "fullVideoUrl": "/media/showcase/moments-in-time.mp4"
+  },
+  {
+    "id": "currency-story",
+    "source": "3rd.mp4",
+    "title": "Small frame. Big story.",
+    "subtitle": "Vertical storytelling / Editing sample",
+    "description": "A vertical educational editing sample pairing currency imagery with animated type and visual pacing.",
+    "services": [
+      "Short-form editing",
+      "Animated typography"
+    ],
+    "posterTime": 4,
+    "duration": 23.848042,
+    "width": 720,
+    "height": 1280,
+    "thumbnail": "/media/showcase/currency-story.webp",
+    "previewVideo": "/media/showcase/currency-story-preview.mp4",
+    "fullVideoUrl": "/media/showcase/currency-story.mp4"
+  },
+  {
+    "id": "playlist-in-motion",
+    "source": "4rt.mp4",
+    "title": "Press play.",
+    "subtitle": "Vertical motion / Editing sample",
+    "description": "A vertical motion sample exploring music-interface graphics and transitions.",
+    "services": [
+      "Short-form editing",
+      "Interface animation"
+    ],
+    "posterTime": 3,
+    "duration": 16.018708,
+    "width": 720,
+    "height": 1280,
+    "thumbnail": "/media/showcase/playlist-in-motion.webp",
+    "previewVideo": "/media/showcase/playlist-in-motion-preview.mp4",
+    "fullVideoUrl": "/media/showcase/playlist-in-motion.mp4"
+  }
+]

@@ -1,0 +1,23 @@
+/* Each route has its own composition; shared navigation and footer stay mounted. */
+.interior-page { padding-top: 76px; min-height: 70svh; }
+.interior-page > .selected-work { padding-top: 70px; }
+.interior-page > .about, .interior-page > .services { padding-top: 70px; }
+.interior-page > .contact { padding-top: 80px; }
+.page-cta { border-top: 1px solid var(--line); background: radial-gradient(ellipse at 90% 110%, #6e313a38, transparent 58%); }
+.page-cta h2 { font-size: clamp(36px, 6.6vw, 100px); letter-spacing: -.06em; line-height: 1; }
+.page-cta .button { flex-shrink: 0; }
+.studio-teaser { border-top: 1px solid var(--line); background: #0a090b; }
+.studio-teaser h2 { font-size: clamp(40px, 5.7vw, 86px); line-height: 1.05; letter-spacing: -.055em; margin: 32px 0 22px; }
+.studio-teaser p { color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+.studio-teaser .text-link { margin-right: 36px; }
+.project-page { padding-top: 110px; }
+.project-page .project-detail { padding-inline: 0; max-width: 1220px; margin: auto; }
+.project-detail h1 { font-size: clamp(40px, 7vw, 100px); line-height: 1; letter-spacing: -.06em; margin: 20px 0 40px; }
+.project-page .detail-cover { max-height: 70svh; object-fit: contain; background: #0b090d; }
+.mobile-nav a[aria-current] { color: var(--red); }
+@media (max-width: 1024px) { .desktop-nav { gap: 23px; } .logo-link { width: 120px; } }
+@media (max-width: 767px) {
+  .interior-page > .selected-work, .interior-page > .about, .interior-page > .services, .interior-page > .contact { padding-top: 50px; }
+  .page-cta .heading-row { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .project-page { padding-top: 100px; }
+}

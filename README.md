@@ -1,7 +1,8 @@
 # AVX Studios
 
 A custom React + TypeScript creative studio portfolio, built with Vite, Tailwind CSS,
-GSAP/ScrollTrigger, Lenis, Motion, Lucide, and the **official React Bits Grainient**.
+GSAP/ScrollTrigger, Lenis, Motion, Lucide, React Router, and the **official React Bits
+Grainient, FlexCarousel, and DepthCarousel**.
 
 ## Run locally
 
@@ -27,12 +28,17 @@ or Git repository in the supplied workspace; the original assets are preserved.
 
 - `src/components/`: navigation, individual sections, project cards, accessible
   native dialogs, and custom video player.
-- `src/data/projects.ts`: all portfolio content and the showreel configuration.
+- `src/pages/`: dedicated Home, Work, Services, About, Contact and project pages.
+- `src/components/showcase/`: video and website carousel integrations with fallbacks.
+- `src/data/projects.ts`: portfolio collections, website screens and showreel configuration.
+- `src/data/video-sources.json`: source filenames, sample titles and poster timings.
+- `src/data/video-manifest.json`: generated browser-ready video metadata.
+- `src/data/routes.json`: page titles/descriptions shared by runtime and Netlify build.
 - `src/data/site.ts`: contact configuration, navigation, and verified social links.
 - `src/lib/`: URL/content validation, inquiry formatting, and media helpers.
 - `src/hooks/`: responsive preferences and coordinated scroll motion.
 - `src/styles/`: typography, design tokens, section layouts, responsive rules.
-- `src/vendor/grainient/`: official source, attribution, and original license.
+- `src/vendor/grainient/` and `src/vendor/carousels/`: official source and licenses.
 - `public/media/`: optimized logo, posters, preview video, and social image.
 - `scripts/`: asset preparation, production asset selection, canonical SEO.
 - `tests/`: content boundary, unsafe URLs, optional media, and inquiry validation.
@@ -42,12 +48,13 @@ or Git repository in the supplied workspace; the original assets are preserved.
 `publishedProjects` starts empty. Only put actual, approved projects in that array.
 The public gallery currently shows a separately labeled **studio collection**:
 
-1. The supplied `AVX SAAS V1.mp4`, approved by the owner as a studio demo.
-2. This AVX website, a self-initiated studio project, illustrated with its actual screenshot.
+1. Eight supplied videos, clearly labeled studio demos or editing samples, including the original approved `AVX SAAS V1.mp4`.
+2. This AVX website, illustrated with actual Home, About, and Services screenshots. These are three screens of **one website**, not three invented projects.
 
-There are no fabricated clients, testimonials, outcomes, awards, biographies,
-Kapalini Ghee, or Synapse case studies. When published projects are added, the
-gallery automatically prioritizes that collection. Demo entries stay separate.
+No client relationships, results, testimonials, awards, or team biographies are invented.
+The supplied Synapse promo appears only as a video editing sample; it is not represented
+as an AVX website case study. Published work and demonstration entries remain separate
+in data and are shown together in the filtered showcase.
 
 The showreel section currently plays the approved demo and explicitly says the
 full studio showreel is still forthcoming. Replace the `showreel` object and
@@ -82,9 +89,9 @@ schema example, not published sample content:
 ```
 
 Remove the entry to unpublish it. No layout components need editing.
-IDs and slugs must be unique. Project detail links use `/#project/the-slug`, so
-they load directly on a static host without a routing server. Unknown project
-slugs get an accessible not-found dialog.
+IDs and slugs must be unique. Project detail links use `/work/the-slug`.
+Netlify supports direct page loads and refreshes. Unknown slugs show a 404 view.
+Older `/#project/the-slug` and section links are forwarded to the new routes.
 
 Use first-party absolute paths (`/projects/...`) or HTTPS URLs. Unsafe protocols
 are discarded. Percent-encode spaces in URLs. Direct MP4/WebM/Ogg URLs use the
@@ -100,9 +107,25 @@ For large collections, use an approved video CDN rather than checking large file
 into the site. Provide direct playable HTTPS files, correct MIME types, and byte
 range support; authenticated watch-page links should use external navigation.
 
-The supplied source video is preserved at its original path. Its optimized
-preview is approximately 335 KB. Neither full videos nor preview MP4s are
-downloaded on the initial page load.
+All original videos remain untouched in `public/SHOCASE-VIDEOS/`. Newly supplied
+editing originals are ignored by Git; the generated MP4s, WebP posters and previews
+in `public/media/showcase/` are the production assets. The current collection is
+about 25 MB instead of shipping approximately 106 MB of originals. The full files
+are loaded only on a request to play, and previews only on hover intent.
+
+To add or replace a supplied sample:
+
+1. Put its original in `public/SHOCASE-VIDEOS/`.
+2. Add a unique entry to `src/data/video-sources.json` with truthful title,
+   description, services and a `posterTime` in seconds.
+3. Run `npm run prepare:showcase` locally (requires `ffmpeg` and `ffprobe` on PATH).
+4. Commit the generated manifest and files under `public/media/showcase/`.
+   Netlify does **not** need FFmpeg or the original footage.
+5. To remove a sample, remove its source entry, regenerate the manifest, and remove
+   the corresponding generated assets when no other page references them.
+
+The preparation script produces H.264/AAC MP4 with fast-start, short silent previews,
+and WebP stills, preserving portrait versus landscape composition.
 
 **Build asset whitelist:** `scripts/finalize.mjs` copies only approved asset
 directories into `dist/`. Add a newly introduced public asset directory there.
@@ -170,9 +193,12 @@ Add supplied, verified social links to `site.socials` in `src/data/site.ts`.
 5. Deploy, check image/video URLs, verify the inquiry route, and test submission.
 
 `netlify.toml` supplies security headers and immutable caching for hashed assets.
-Only the homepage and hash-linked project details are application routes; static
-`404.html` handles unknown paths. There is no broad catch-all redirect masking
-missing video files or form errors.
+The site has `/home`, `/work`, `/services`, `/about`, `/contact`, and `/work/:slug`.
+`/` redirects to `/home`. `scripts/seo.mjs` generates `_redirects` and individual
+HTML entry documents with page metadata. Exact page rewrites and the `/work/*`
+project route support direct loads. Unknown paths use `404.html`; there is no
+site-wide catch-all that hides missing assets or form errors.
+When hosting elsewhere, configure equivalent history rewrites for these routes.
 
 Canonical URL, absolute Open Graph URL, sitemap, and robots sitemap reference
 are generated at build time when the final HTTPS origin is known. No fictitious
@@ -200,15 +226,16 @@ embeds are installed.
 ## Verification
 
 - TypeScript and optimized Vite production build pass.
-- 14 automated tests cover unsafe URLs, missing optional fields, duplicate
-  identifiers, video link classification, durations, and inquiry validation.
+- 24 automated tests cover unsafe URLs, missing optional fields, duplicate
+  identifiers, video link classification, inquiry validation, asset packaging,
+  generated media availability, route metadata, and Netlify rewrite generation.
 - Browser layouts checked at 1440, 1024, 768, 390, and 320 CSS pixels. No page-width
   overflow was observed.
 - Browser interactions checked: work filters, website details, video playback,
   pause/mute, Escape-to-close, and mobile navigation.
 - Browser testing exposed and corrected StrictMode WebGL cleanup and media
   metadata timing issues.
-- QA screenshots are in `output/qa/`.
+- QA screenshots are in `output/qa/`; current website carousel screenshots are in `public/media/website-*.webp`.
 
 No Lighthouse score or cross-device 60 FPS result is claimed. Netlify delivery,
 real email receipt, and testing on physical devices remain launch checks.
@@ -221,3 +248,25 @@ David Haz: vendored revision and MIT + Commons Clause license in
 standalone component product. The [YAAS reference](https://www.yaasmedia.com)
 informed the emphasis on typography and work; AVX's layout, copy, service artwork,
 and interactions are independently implemented.
+
+## Carousel behavior and configuration
+
+`VideoShowcase` lazily loads the official OGL FlexCarousel near the viewport.
+Actual video posters are its textures. Dragging, arrow keys, previous/next buttons
+and Enter select/play films; the native video player supplies pause, progress,
+volume, fullscreen, and Escape-to-close. “Browse all films” exposes every sample
+with short muted hover previews and a dedicated project link. Reduced motion or
+WebGL failure uses an accessible horizontal poster list. No stock sample images
+from the vendor component are included.
+
+`WebsiteShowcase` uses the official GSAP DepthCarousel with real screenshot cards.
+Its controls and indicators select a screen, and “Explore this page” opens that
+route. Add verified website projects to `publishedProjects`; they receive their
+own screenshot card and external live link. The three AVX page views are configured
+in `websiteScreens`. Replace `public/media/website-home.webp`, `website-about.webp`
+and `website-services.webp` with current screenshots after redesigns.
+
+Neither carousel captures vertical wheel scrolling or auto-advances. All full
+videos remain unloaded until selected. FlexCarousel caps DPR at 1.5 and pauses
+when offscreen. Scoped vendor adaptations and upstream URLs are documented in
+`src/vendor/carousels/README.md`.

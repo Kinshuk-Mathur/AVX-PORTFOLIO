@@ -25,3 +25,5 @@ dist/
 # Environment files
 .env
 .env.local
+# Keep editing originals local; deploy committed, optimized showcase media.
+public/SHOCASE-VIDEOS/*

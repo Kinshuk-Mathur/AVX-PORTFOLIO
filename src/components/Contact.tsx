@@ -5,7 +5,8 @@ import { formatInquiry, inquiryServices, readInquiry } from '../lib/inquiry';
 import { GrainientSurface } from './GrainientSurface';
 import { MagneticLink, SectionLabel } from './UI';
 
-export function Contact() {
+export function Contact({ primary = false }: { primary?: boolean } = {}) {
+  const Heading = primary ? 'h1' : 'h2';
   const form = useRef<HTMLFormElement>(null);
   const [feedback, setFeedback] = useState('');
   const [error, setError] = useState(false);
@@ -48,7 +49,7 @@ export function Contact() {
     <GrainientSurface restrained />
     <div className="contact-content">
       <SectionLabel number="06">LET’S CREATE TOGETHER</SectionLabel>
-      <div className="contact-heading" data-reveal><h2 className="display-heading" id="contact-title">HAVE SOMETHING<br />IN MIND<span className="accent">?</span></h2>
+      <div className="contact-heading" data-reveal><Heading className="display-heading" id="contact-title">HAVE SOMETHING<br />IN MIND<span className="accent">?</span></Heading>
         <p className="contact-bigline">LET’S MAKE IT REAL<span className="accent">.</span><ArrowUpRight strokeWidth={1.2} /></p></div>
       <div className="contact-grid">
         <div className="contact-intro" data-reveal><p>Have a video, a brand, or a website idea? Tell us what you’re imagining.</p>

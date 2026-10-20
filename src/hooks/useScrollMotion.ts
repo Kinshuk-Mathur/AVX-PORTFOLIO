@@ -2,10 +2,12 @@ import { useEffect, type RefObject } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import { useLocation } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function useScrollMotion(root: RefObject<HTMLElement | null>) {
+  const { pathname } = useLocation();
   useEffect(() => {
     const media = gsap.matchMedia();
     media.add('(prefers-reduced-motion: no-preference)', () => {
@@ -38,11 +40,11 @@ export function useScrollMotion(root: RefObject<HTMLElement | null>) {
             clearProps: 'transform,clipPath',
           });
         });
-        gsap.fromTo('.statement-word', { opacity: 0.22 }, {
+        if (root.current?.querySelector('.statement')) gsap.fromTo('.statement-word', { opacity: 0.22 }, {
           opacity: 1, stagger: 0.18, ease: 'none',
           scrollTrigger: { trigger: '.statement', start: 'top 78%', end: 'bottom 64%', scrub: 0.5 },
         });
-        gsap.fromTo('.process-progress', { scaleX: 0 }, {
+        if (root.current?.querySelector('.process-steps')) gsap.fromTo('.process-progress', { scaleX: 0 }, {
           scaleX: 1, ease: 'none',
           scrollTrigger: { trigger: '.process-steps', start: 'top 84%', end: 'bottom 40%', scrub: 0.4 },
         });
@@ -55,5 +57,5 @@ export function useScrollMotion(root: RefObject<HTMLElement | null>) {
       };
     });
     return () => media.revert();
-  }, [root]);
+  }, [root, pathname]);
 }

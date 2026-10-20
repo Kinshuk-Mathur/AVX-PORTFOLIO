@@ -1,0 +1,27 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+.DS_Store
+._*
+*.tsbuildinfo
+.netlify/
+tmp/
+
+.next/
+.env.production
+# macOS metadata
+.DS_Store
+._*
+__MACOSX/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment files
+.env
+.env.local

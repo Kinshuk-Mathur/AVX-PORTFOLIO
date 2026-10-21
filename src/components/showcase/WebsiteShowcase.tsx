@@ -12,7 +12,7 @@ export function WebsiteShowcase({ projects }: { projects: Project[] }) {
   const { ref, near } = useNearViewport();
   const screens = useMemo(() => projects.map(project => ({
     image: project.thumbnail || '/media/og-avx.png', alt: `${project.title} website preview`,
-    title: project.title, label: project.status === 'demo' ? 'AVX / Studio website' : 'Website design & development',
+    title: project.title, label: project.status === 'demo' ? 'Website concept / Studio demo' : 'Website design & development',
     url: project.websiteUrl, project,
   })), [projects]);
   if (!screens.length) return <p className="work-empty">New website stories are taking shape.</p>;

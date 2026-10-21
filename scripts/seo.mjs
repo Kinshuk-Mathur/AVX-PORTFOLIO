@@ -23,17 +23,15 @@ for (const route of routes) {
   if (route.path === '/home') await writeFile('dist/index.html', html);
 }
 // Exact page rewrites keep missing assets and unknown URLs as real 404 responses.
+// Netlify normalizes trailing slashes before matching. A /page/ -> /page rule
+// therefore redirects /page to itself forever. Canonicalize only in the router.
 await writeFile('dist/_redirects', [
   '/ /home 301',
   '/work /video-editing 301',
-  '/work/ /video-editing 301!',
   '/services /home#services 301',
-  '/services/ /home#services 301!',
   '/work/video-editing /video-editing 301',
   '/work/websites /websites 301',
-  '/work/video-editing/ /video-editing 301!',
-  '/work/websites/ /websites 301!',
-  ...routes.flatMap(route => [`${route.path}/ ${route.path} 301!`, `${route.path} /pages${route.path}.html 200`]),
+  ...routes.map(route => `${route.path} /pages${route.path}.html 200`),
   '/work/* /index.html 200',
 ].join('\n') + '\n');
 if (origin) await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(route => `<url><loc>${origin}${route.path}</loc></url>`).join('')}</urlset>`);

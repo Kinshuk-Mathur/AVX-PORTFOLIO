@@ -47,4 +47,38 @@ describe('Netlify page entries', () => {
     expect(() => build('http://avx-test.example')).toThrow();
     expect(() => build('https://user:secret@avx-test.example')).toThrow();
   });
+  it('terminates direct loads and legacy links after Netlify trailing-slash normalization', () => {
+    const directory = build();
+    const rules = readFileSync(join(directory, 'dist/_redirects'), 'utf8')
+      .trim().split('\n').map(line => line.split(/\s+/));
+    // Netlify matches /page and /page/ identically, including forced redirects.
+    const normalize = (path: string) => new URL(path, 'https://avx-test.example').pathname.replace(/\/+$/, '') || '/';
+    const requests = [
+      ...routes.map(route => [route.path, route.path]),
+      ['/', '/home'], ['/work', '/video-editing'], ['/services', '/home'],
+      ['/work/websites', '/websites'], ['/work/video-editing', '/video-editing'],
+    ];
+    for (const [request, destination] of requests) {
+      for (const suffix of ['', '/', '/?utm_source=reload']) {
+        let path = normalize(`${request === '/' ? '' : request}${suffix}`);
+        const seen = new Set<string>();
+        for (;;) {
+          expect(seen.has(path), `Redirect cycle for ${request}${suffix}: ${path}`).toBe(false);
+          seen.add(path);
+          const rule = rules.find(([from]) => from.endsWith('*')
+            ? path.startsWith(from.slice(0, -1)) : normalize(from) === path);
+          expect(rule, `Missing route for ${path}`).toBeDefined();
+          const [, to, status] = rule!;
+          if (status.startsWith('3')) {
+            path = normalize(to);
+            continue;
+          }
+          expect(status).toBe('200');
+          expect(to).toBe(`/pages${destination}.html`);
+          expect(readFileSync(join(directory, 'dist', to), 'utf8')).toContain('<title>');
+          break;
+        }
+      }
+    }
+  });
 });

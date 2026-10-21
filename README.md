@@ -2,7 +2,7 @@
 
 A custom React + TypeScript creative studio portfolio, built with Vite, Tailwind CSS,
 GSAP/ScrollTrigger, Lenis, Motion, Lucide, React Router, and the **official React Bits
-Grainient, ShapeWaves, FlexCarousel, and DepthCarousel**.
+Grainient, LetterGlitch, FlexCarousel, and DepthCarousel**.
 
 ## Run locally
 
@@ -39,7 +39,7 @@ or Git repository in the supplied workspace; the original assets are preserved.
 - `src/lib/`: URL/content validation, inquiry formatting, and media helpers.
 - `src/hooks/`: responsive preferences and coordinated scroll motion.
 - `src/styles/`: typography, design tokens, section layouts, responsive rules.
-- `src/vendor/grainient/`, `src/vendor/shape-waves/`, and `src/vendor/carousels/`: official source and licenses.
+- `src/vendor/grainient/`, `src/vendor/letter-glitch/`, and `src/vendor/carousels/`: official source and licenses.
 - `public/media/`: optimized logo, posters, preview video, and social image.
 - `scripts/`: asset preparation, production asset selection, canonical SEO.
 - `tests/`: content boundary, unsafe URLs, optional media, and inquiry validation.
@@ -52,7 +52,8 @@ captured from the live sites. Descriptions cover visible features, with no
 invented results, project dates, or testimonials.
 
 The separate demonstration collection contains eight supplied videos, labeled
-studio demos/editing samples, and AVX’s own website. The Synapse promo is a video
+studio demos/editing samples. Only Kapalini and BrewEase appear in the website
+showcase; AVX’s own site is excluded. The Synapse promo is a video
 sample, not a commissioned website case study. Website projects and video samples
 appear on separate routes; Home contains services and the labeled studio showreel.
 
@@ -198,12 +199,22 @@ Older `/work/websites` and `/work/video-editing` URLs forward to the category pa
 HTML entry documents with page metadata. Exact page rewrites and the `/work/*`
 project route support direct loads. Unknown paths use `404.html`; there is no
 site-wide catch-all that hides missing assets or form errors.
+Netlify normalizes trailing slashes before matching rules. Never add a forced
+`/page/ /page 301!` rule: it matches `/page` too and creates an infinite redirect.
+Both slash variants use the same 200 page rewrite; the client router normalizes
+its address without another HTTP request. The regression test follows both slash
+variants, query strings, and legacy aliases to their HTML entries.
+
+After uploading this fix, trigger a new Netlify deploy (build: `npm run build`,
+publish: `dist`). Check a direct load and refresh of `/websites` and `/about`.
+If a browser retains an old permanent redirect, clear cached site data or check
+in a private window. Cookie deletion is not the server-side fix.
 When hosting elsewhere, configure equivalent history rewrites for these routes.
 
 Canonical URL, absolute Open Graph URL, sitemap, and robots sitemap reference
 are generated at build time when the final HTTPS origin is known. No fictitious
 domain is emitted locally. The social card and favicon are already included.
-The site is **prepared for deployment, not deployed to a Netlify account**.
+A live Netlify site exists; changes made here are local until redeployed.
 
 ## Motion and performance
 
@@ -211,19 +222,21 @@ The site is **prepared for deployment, not deployed to a Netlify account**.
 section. Its height follows the `data-atmosphere-end` marker as the layout changes;
 the remaining page surfaces are solid black. All
 routes use the official Grainient with the AVX five-color palette, except
-`/websites`, which mounts official Shape Waves in AVX red and unmounts Grainient.
+`/websites`, which mounts official Letter Glitch in white/red (#ffffff, #ff0000)
+and unmounts Grainient. The `/work/websites` alias forwards to this page.
 Both are lazy-loaded with DPR capped at 1.5. Their render loops pause when hidden.
 Reduced motion and GPU failures use readable static fallbacks, without preventing
-navigation or access to projects. Shape Waves uses WebGPU; Grainient uses WebGL.
-
-VGPU is pinned to the React Bits-compatible 0.3.x series. The transitive MCP SDK
-is overridden to patched 2.3.1+; it is not included in the browser runtime. Avoid
-upgrading VGPU to 0.6 without adapting the upstream renderer’s breaking APIs.
+navigation or access to projects. Letter Glitch and Grainient use WebGL.
+Shape Waves and its VGPU dependency have been removed.
 
 Reduced motion also skips smooth scrolling, hero/scroll reveals, hover playback,
 and magnetic movement. The Home services use solid black cards with bold type.
 Hover or keyboard focus expands an AVX-red circle from the top-right control and
-reveals capabilities. Touch devices show capabilities without requiring hover;
+reveals capabilities. Service cards keep a fixed hit area and animate transforms
+and opacity instead of expanding grid rows. ResizeObserver measures content only
+when card dimensions or typography change; rapid hover reversals do not reflow
+the cards. Text colour follows the red fill to avoid briefly disappearing.
+Touch devices show capabilities without requiring hover;
 reduced motion makes the state change immediate. All five services
 are accessible through keyboard- and touch-operable dialogs.
 
@@ -244,20 +257,20 @@ embeds are installed.
 ## Verification
 
 - TypeScript and optimized Vite production build pass.
-- 28 automated tests cover unsafe URLs, missing optional fields, duplicate
+- 29 automated tests cover unsafe URLs, missing optional fields, duplicate
   identifiers, video link classification, inquiry validation, asset packaging,
-  generated media availability, route metadata, and Netlify rewrite generation.
+  generated media availability, route metadata, Netlify rewrite generation, and
+  redirect-loop prevention under trailing-slash normalization.
 - Before the latest black-card/font/header-background revision, browser layouts
   were checked at 1440, 1024, 768, 390, and 320 CSS pixels. No page-width
   overflow was observed.
 - Browser interactions checked: category routes, service dialogs and inquiry selection, website details, video playback,
   pause/mute, Escape-to-close, and mobile navigation.
-- Official Shape Waves verified rendering in the production build (WebGPU ready),
-  with Grainient unmounted on `/websites`.
 - The latest visual revision passes TypeScript, tests, and the production build;
   a fresh visual browser check remains outstanding because local browser access
   is disabled in the app settings.
-- Earlier QA screenshots are in `output/qa/`; website carousel screenshots are in `public/media/website-*.webp`.
+- Earlier QA screenshots are in `output/qa/`; current website thumbnails are
+  `public/media/kapalini.webp` and `public/media/brewease.webp`.
 
 No Lighthouse score or cross-device 60 FPS result is claimed. Netlify delivery,
 real email receipt, and testing on physical devices remain launch checks.
@@ -284,14 +297,13 @@ from the vendor component are included.
 `WebsiteShowcase` uses the official GSAP DepthCarousel with real screenshot cards.
 Its controls and indicators select a project. “Visit Website” opens a live site
 safely in a new tab; “View project” opens `/work/:slug`. Each project receives one
-card. Add approved projects and screenshots in `publishedProjects`; the AVX Home
-and About gallery screens stay in `websiteScreens`. Replace screenshots after
-redesigns. No retired Services screenshot is shown.
+card. Add approved projects and screenshots in `publishedProjects`. Replace
+screenshots after redesigns. AVX’s own website is not included in the collection.
 
 Neither carousel captures vertical wheel scrolling or auto-advances. All full
 videos remain unloaded until selected. FlexCarousel caps DPR at 1.5 and pauses
 when offscreen. Scoped vendor adaptations and upstream URLs are documented in
 `src/vendor/carousels/README.md`.
 
-Shape Waves source and integration notes are in `src/vendor/shape-waves/README.md`.
-The official component is from https://reactbits.dev/backgrounds/shape-waves.
+Letter Glitch source and integration notes are in `src/vendor/letter-glitch/README.md`.
+The official component is from https://reactbits.dev/backgrounds/letter-glitch.

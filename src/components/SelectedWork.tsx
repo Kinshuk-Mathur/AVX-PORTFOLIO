@@ -19,7 +19,7 @@ export function SelectedWork({ category }: { category: ProjectCategory }) {
       </div>
     </div>
     <span className="atmosphere-end" data-atmosphere-end aria-hidden="true" />
-    <p className="collection-caption"><span className="status-dot" />{video ? 'FROM THE STUDIO' : 'LIVE ON THE WEB'} <span>{video ? 'Studio demos & editing samples. A look at the craft.' : 'Brand websites and our own studio experience. Explore them live.'}</span></p>
+    <p className="collection-caption"><span className="status-dot" />{video ? 'FROM THE STUDIO' : 'LIVE ON THE WEB'} <span>{video ? 'Studio demos & editing samples. A look at the craft.' : 'Brand websites, brought to life. Explore them live.'}</span></p>
     {video ? <VideoShowcase projects={projects} /> : <WebsiteShowcase projects={projects} />}
     <div className="work-end"><span>YOUR NEXT PROJECT COULD BE HERE.</span><Link to="/contact" className="text-link">Let’s make something worth showing ↗</Link></div>
   </section>;

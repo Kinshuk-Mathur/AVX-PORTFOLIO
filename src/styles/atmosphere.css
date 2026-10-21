@@ -2,9 +2,11 @@
 .route-atmosphere { position: absolute; inset: 0 0 auto; height: 85svh; z-index: -1; pointer-events: none; overflow: hidden; background: #000; }
 .route-atmosphere > .grainient-surface { z-index: 0; }
 .atmosphere-end { display: block; height: 0; pointer-events: none; }
-.shape-surface { width: 100%; height: 100%; background-color: #000; background-image: radial-gradient(ellipse at 80% 30%,#ff002c44,transparent 68%), radial-gradient(circle,#cf123c8c 1px,transparent 2px); background-size: 100% 100%, 13px 13px; }
-.shape-surface > .shape-waves { width: 100%; height: 100%; }
-.shape-shade { position: absolute; inset: 0; background: linear-gradient(90deg,#0009,transparent 80%),linear-gradient(180deg,#0005,#0000 55%,#000); background-color: #0006; }
+.letter-surface { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; }
+.letter-fallback { position: absolute; inset: 0; color: #ffffff25; font: 12px/24px monospace; letter-spacing: 7px; white-space: nowrap; }
+.letter-fallback span { display: block; }
+.letter-fallback span:nth-child(3n) { color: #ff000030; }
+.letter-shade { position: absolute; inset: 0; background: linear-gradient(90deg,#0005,#0002),linear-gradient(180deg,#0004,transparent 45%,#000); }
 .hero, .contact, .selected-work, .about { background: transparent; }
 .statement, .studio-teaser, .showreel, .process, .page-cta, .capabilities-section, .website-stage, .flex-stage { background: #000; }
 .work-filters a { display: inline-flex; align-items: center; justify-content: center; font-size: 11px; padding: 12px 20px; border-radius: 30px; border: 1px solid #ffffff40; background: #0003; transition: background .2s,border-color .2s; min-height: 44px; }

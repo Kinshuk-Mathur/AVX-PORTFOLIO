@@ -13,24 +13,25 @@
 .cap-partnerships { grid-column: 1 / -1; }
 .cap-card-trigger { display: flex; flex-direction: column; justify-content: flex-end; width: 100%; height: 100%; min-height: inherit; position: relative; padding: 80px 30px 30px; text-align: left; isolation: isolate; }
 /* The circle grows from the top-right control, like the supplied interaction. */
-.cap-card-trigger::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--red); clip-path: circle(0% at calc(100% - 43px) 43px); transition: clip-path .65s cubic-bezier(.22,.68,0,1); }
+.cap-card-trigger::before { content: ''; position: absolute; top: 43px; right: 43px; width: var(--cap-fill-size,1800px); height: var(--cap-fill-size,1800px); margin-top: calc(var(--cap-fill-size,1800px) / -2); margin-right: calc(var(--cap-fill-size,1800px) / -2); z-index: -1; background: var(--red); border-radius: 50%; transform: scale(0); transition: transform .48s cubic-bezier(.22,.68,0,1); pointer-events: none; }
+.cap-card-trigger > * { pointer-events: none; }
 .cap-index { position: absolute; top: 30px; left: 30px; color: #aaa; font-size: 9px; transition: color .25s; }
 .cap-expand { position: absolute; top: 20px; right: 20px; border: 1px solid #ffffff38; background: #111; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; transition: background .35s,color .25s,border-color .35s; }
-.cap-copy { display: flex; flex-direction: column; align-items: flex-start; width: 100%; }
+.cap-copy { display: flex; flex-direction: column; align-items: flex-start; width: 100%; flex-shrink: 0; transition: transform .45s cubic-bezier(.22,.68,0,1); }
 .cap-eyebrow { color: #a8a8a8; font-size: 8px; letter-spacing: .08em; margin-bottom: 15px; transition: color .25s; }
 .cap-title { font-family: var(--font-display); font-size: clamp(34px,3.2vw,52px); letter-spacing: -.025em; line-height: 1; font-weight: 900; text-wrap: balance; transition: color .25s; }
-.cap-summary { display: grid; grid-template-rows: 1fr; font-size: 12px; line-height: 1.65; color: #c5c5c5; margin-top: 18px; transition: grid-template-rows .5s cubic-bezier(.22,.68,0,1),opacity .35s,margin .5s,color .25s; }
+.cap-summary { display: block; font-size: 12px; line-height: 1.65; color: #c5c5c5; padding-top: 18px; transition: opacity .18s,transform .35s,color .16s; }
 .cap-summary > span { overflow: hidden; }
 .cap-summary > span > span { display: block; }
-.cap-discover { display: flex; gap: 14px; align-items: center; font-size: 10px; margin-top: 22px; transition: color .25s; }
+.cap-discover { position: relative; flex-shrink: 0; display: flex; gap: 14px; align-items: center; font-size: 10px; margin-top: 22px; transition: color .25s; }
 .cap-card-trigger:focus-visible { outline: 2px solid white; outline-offset: -5px; border-radius: 16px; }
-.cap-card-trigger:focus-visible::before { clip-path: circle(150% at calc(100% - 43px) 43px); }
+.cap-card-trigger:focus-visible::before { transform: scale(1); }
 .cap-card-trigger:focus-visible :is(.cap-title,.cap-summary,.cap-eyebrow,.cap-index,.cap-discover) { color: #000; }
 .cap-card-trigger:focus-visible .cap-expand { background: transparent; color: #000; border-color: #0004; }
 .cap-clipping .cap-title, .cap-software .cap-title { font-size: clamp(28px,2.4vw,39px); }
 .cap-clipping .cap-eyebrow, .cap-software .cap-eyebrow { display: none; }
 .cap-clipping .cap-discover, .cap-software .cap-discover { margin-top: 14px; }
-.cap-clipping .cap-summary, .cap-software .cap-summary { font-size: 11px; margin-top: 12px; }
+.cap-clipping .cap-summary, .cap-software .cap-summary { font-size: 11px; }
 .cap-partnerships .cap-title { max-width: 660px; }
 .cap-partnerships .cap-copy { max-width: 880px; }
 .cap-partnerships .cap-summary > span { display: flex; flex-wrap: wrap; gap: 6px 25px; }
@@ -44,11 +45,13 @@
 .service-detail li { border: 1px solid #ffffff26; padding: 10px 14px; border-radius: 30px; font-size: 11px; }
 .service-detail-actions { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
 @media (hover:hover) and (pointer:fine) {
-  .cap-summary, .cap-clipping .cap-summary, .cap-software .cap-summary { grid-template-rows: 0fr; opacity: 0; margin-top: 0; }
-  .cap-card-trigger:is(:hover,:focus-visible)::before { clip-path: circle(150% at calc(100% - 43px) 43px); }
-  .cap-card-trigger:is(:hover,:focus-visible) :is(.cap-title,.cap-summary,.cap-eyebrow,.cap-index,.cap-discover) { color: #000; }
+  .cap-copy { transform: translate3d(0,var(--cap-reveal-distance,0px),0); }
+  .cap-summary { opacity: 0; transform: translate3d(0,8px,0); }
+  .cap-card-trigger:is(:hover,:focus-visible)::before { transform: scale(1); }
+  .cap-card-trigger:is(:hover,:focus-visible) .cap-copy { transform: translate3d(0,0,0); }
+  .cap-card-trigger:is(:hover,:focus-visible) :is(.cap-title,.cap-summary,.cap-eyebrow,.cap-index,.cap-discover) { color: #000; transition-delay: .2s; }
   .cap-card-trigger:is(:hover,:focus-visible) .cap-expand { background: transparent; color: #000; border-color: #0004; }
-  .cap-card-trigger:is(:hover,:focus-visible) .cap-summary { grid-template-rows: 1fr; opacity: 1; margin-top: 18px; }
+  .cap-card-trigger:is(:hover,:focus-visible) .cap-summary { opacity: 1; transform: translate3d(0,0,0); }
   .cap-card-trigger:is(:hover,:focus-visible) .cap-eyebrow { color: #240009; }
 }
 @media (max-width:1023px) {
@@ -75,5 +78,5 @@
   .capabilities-end .text-link { margin-top: 7px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .cap-expand, .cap-summary, .cap-card-trigger::before, .cap-title, .cap-eyebrow, .cap-index, .cap-discover { transition: none; }
+  .cap-expand, .cap-summary, .cap-copy, .cap-card-trigger::before, .cap-title, .cap-eyebrow, .cap-index, .cap-discover { transition: none; }
 }

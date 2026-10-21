@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Plus } from 'lucide-react';
+import { ArrowUpRight, Maximize2 } from 'lucide-react';
 import { services, type Service } from '../data/services';
 import { Modal } from './Modal';
 import { SectionLabel } from './UI';
-import { ServiceVisual } from './ServiceVisual';
 
 export function Services() {
   const [selected, setSelected] = useState<Service | null>(null);
@@ -16,11 +15,10 @@ export function Services() {
     </div>
     <div className="capabilities-grid">
       {services.map((service, index) => <article key={service.id} className={`cap-card cap-${service.id}`} data-reveal>
-        <ServiceVisual type={service.id} />
         <button className="cap-card-trigger" onClick={() => setSelected(service)} aria-label={`Explore ${service.title}`} aria-haspopup="dialog">
-          <span className="cap-index mono">0{index + 1} / AVX</span><span className="cap-expand"><Plus size={23} strokeWidth={1.3} /></span>
+          <span className="cap-index mono">0{index + 1} / AVX</span><span className="cap-expand"><Maximize2 size={20} strokeWidth={1.5} /></span>
           <span className="cap-copy"><span className="mono cap-eyebrow">{service.eyebrow}</span><span className="cap-title">{service.title}</span>
-            <span className="cap-summary">{service.capabilities.slice(0, 3).join(' · ')}</span><span className="cap-discover">Explore service <ArrowUpRight size={17} /></span>
+            <span className="cap-summary"><span>{service.capabilities.map(capability => <span key={capability}>{capability}</span>)}</span></span><span className="cap-discover">Explore service <ArrowUpRight size={17} /></span>
           </span>
         </button>
       </article>)}

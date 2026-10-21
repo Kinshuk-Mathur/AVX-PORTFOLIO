@@ -59,7 +59,7 @@ appear on separate routes; Home contains services and the labeled studio showree
 The showreel section currently plays the approved demo and explicitly says the
 full studio showreel is still forthcoming. Replace the `showreel` object and
 the related descriptive copy in `Showreel.tsx` when an approved reel is available.
-The About visual is an original brand panel, not a purported team photograph;
+The About visual is the original AVX logo on pure black, with a border and shadow;
 replace `.about-identity` in `Studio.tsx` with a real studio image when available.
 
 ## Add or remove projects
@@ -207,7 +207,9 @@ The site is **prepared for deployment, not deployed to a Netlify account**.
 
 ## Motion and performance
 
-`RouteBackground` supplies one shared, fixed atmosphere across the page. All
+`RouteBackground` supplies one shared atmosphere confined to each page’s upper
+section. Its height follows the `data-atmosphere-end` marker as the layout changes;
+the remaining page surfaces are solid black. All
 routes use the official Grainient with the AVX five-color palette, except
 `/websites`, which mounts official Shape Waves in AVX red and unmounts Grainient.
 Both are lazy-loaded with DPR capped at 1.5. Their render loops pause when hidden.
@@ -219,8 +221,10 @@ is overridden to patched 2.3.1+; it is not included in the browser runtime. Avoi
 upgrading VGPU to 0.6 without adapting the upstream renderer’s breaking APIs.
 
 Reduced motion also skips smooth scrolling, hero/scroll reveals, hover playback,
-and magnetic movement. The Home services use original AVX compositions with
-supplied editing stills and the actual Kapalini screenshot. All five services
+and magnetic movement. The Home services use solid black cards with bold type.
+Hover or keyboard focus expands an AVX-red circle from the top-right control and
+reveals capabilities. Touch devices show capabilities without requiring hover;
+reduced motion makes the state change immediate. All five services
 are accessible through keyboard- and touch-operable dialogs.
 
 GSAP owns hero/scroll transforms; Motion owns buttons, cards, and dialog content.
@@ -229,7 +233,11 @@ the GSAP ticker. Native touch scrolling is preserved. Dialogs trap keyboard focu
 restore focus, lock page scrolling, and close on Escape. Opening a dialog pauses
 background hover previews. The native cursor is retained.
 
-Fonts are bundled locally. The full player and WebGL code are separate chunks.
+Body text uses bundled Inter. Display text prefers locally installed Coolvetica,
+then Arial Black, then Inter. No desktop Coolvetica font is redistributed. To
+deliver Coolvetica consistently across devices, supply a licensed WOFF2 and
+update its `@font-face` source in `src/styles/fonts.css`.
+The full player and WebGL code are separate chunks.
 Animations use transforms/opacity, with scoped cleanup. No analytics or third-party
 embeds are installed.
 
@@ -239,13 +247,17 @@ embeds are installed.
 - 28 automated tests cover unsafe URLs, missing optional fields, duplicate
   identifiers, video link classification, inquiry validation, asset packaging,
   generated media availability, route metadata, and Netlify rewrite generation.
-- Browser layouts checked at 1440, 1024, 768, 390, and 320 CSS pixels. No page-width
+- Before the latest black-card/font/header-background revision, browser layouts
+  were checked at 1440, 1024, 768, 390, and 320 CSS pixels. No page-width
   overflow was observed.
 - Browser interactions checked: category routes, service dialogs and inquiry selection, website details, video playback,
   pause/mute, Escape-to-close, and mobile navigation.
 - Official Shape Waves verified rendering in the production build (WebGPU ready),
   with Grainient unmounted on `/websites`.
-- QA screenshots are in `output/qa/`; current website carousel screenshots are in `public/media/website-*.webp`.
+- The latest visual revision passes TypeScript, tests, and the production build;
+  a fresh visual browser check remains outstanding because local browser access
+  is disabled in the app settings.
+- Earlier QA screenshots are in `output/qa/`; website carousel screenshots are in `public/media/website-*.webp`.
 
 No Lighthouse score or cross-device 60 FPS result is claimed. Netlify delivery,
 real email receipt, and testing on physical devices remain launch checks.

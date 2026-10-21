@@ -37,13 +37,14 @@ export function About({ primary = false }: { primary?: boolean } = {}) {
   return <section className="about section-pad page-gutter" id="about" aria-labelledby="about-title">
     <SectionLabel number="05">MEET THE STUDIO</SectionLabel>
     <div className="about-grid">
-      <div className="about-identity" data-mask><span className="mono">INDEPENDENT MINDS. SHARED VISION.</span><Logo /><div className="identity-bottom"><span>ART.<br />VISUAL.<br />EXPERIENCE.</span><ArrowUpRight size={46} strokeWidth={1} /></div><span className="identity-orbit" aria-hidden="true" /></div>
+      <div className="about-identity" data-mask><Logo /></div>
       <div className="about-copy" data-reveal><Heading className="display-heading" id="about-title">CREATIVITY IS<br />OUR LANGUAGE<span className="accent">.</span></Heading>
         <p>AVX Studios is a creative production studio built around a simple idea: great visuals create lasting experiences.</p>
         <p className="muted">We work across video editing, motion graphics, and modern web development to help creators and brands express their ideas with clarity and impact.</p>
         <Link className="text-link" to="/contact">Good things start with a conversation <ArrowUpRight size={18} /></Link>
       </div>
     </div>
+    <span className="atmosphere-end" data-atmosphere-end aria-hidden="true" />
     <div className="values">
       {[
         ['01', 'ART', 'The creative thinking behind every idea.'],

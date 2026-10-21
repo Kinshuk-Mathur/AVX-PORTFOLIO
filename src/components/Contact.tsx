@@ -53,6 +53,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
       <SectionLabel number="06">LET’S CREATE TOGETHER</SectionLabel>
       <div className="contact-heading" data-reveal><Heading className="display-heading" id="contact-title">HAVE SOMETHING<br />IN MIND<span className="accent">?</span></Heading>
         <p className="contact-bigline">LET’S MAKE IT REAL<span className="accent">.</span><ArrowUpRight strokeWidth={1.2} /></p></div>
+      <span className="atmosphere-end" data-atmosphere-end aria-hidden="true" />
       <div className="contact-grid">
         <div className="contact-intro" data-reveal><p>A video, a website, custom software, or a brand collaboration. Tell us what you’re imagining.</p>
           <MagneticLink href="#inquiry" className="button-white">Start a Project</MagneticLink>

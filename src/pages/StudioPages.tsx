@@ -33,5 +33,5 @@ export function ContactPage() {
   return <div className="interior-page"><Contact primary /></div>;
 }
 export function NotFoundPage() {
-  return <div className="not-found"><span className="mono accent">AVX STUDIOS / 404</span><h1>OUT OF<br />FRAME<span className="accent">.</span></h1><p>The page you’re looking for isn’t here.</p><Link to="/home" className="button button-white">Back to the studio ↗</Link></div>;
+  return <div className="not-found" data-atmosphere-end><span className="mono accent">AVX STUDIOS / 404</span><h1>OUT OF<br />FRAME<span className="accent">.</span></h1><p>The page you’re looking for isn’t here.</p><Link to="/home" className="button button-white">Back to the studio ↗</Link></div>;
 }

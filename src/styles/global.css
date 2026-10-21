@@ -4,7 +4,7 @@
   --color-avx-red: #ff002c;
   --color-atmosphere: #120f17;
   --color-burgundy: #6e313a;
-  --font-display: "Space Grotesk Variable", sans-serif;
+  --font-display: "AVX Coolvetica", "Arial Black", "Inter Variable", sans-serif;
   --font-sans: "Inter Variable", sans-serif;
 }
 
@@ -34,7 +34,7 @@ button:disabled { cursor: not-allowed; opacity: .45; }
 button { background: none; border: 0; }
 img, video { display: block; max-width: 100%; }
 h1, h2, h3, h4, p { margin: 0; }
-h1, h2, h3, h4 { font-family: "Space Grotesk Variable", sans-serif; font-weight: 600; }
+h1, h2, h3, h4 { font-family: "AVX Coolvetica", "Arial Black", "Inter Variable", sans-serif; font-weight: 600; }
 ul, ol { padding: 0; margin: 0; list-style: none; }
 button, a, input, select, textarea { outline-offset: 6px; }
 :focus-visible { outline: 2px solid #ff526f; }
@@ -78,7 +78,7 @@ main:focus { outline: none; }
 .mobile-toggle { display: none; }
 .menu-modal .modal-shell { background: #100d11; }
 .mobile-nav { padding: 15px 22px; }
-.mobile-nav a { display: flex; align-items: center; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); font: 500 clamp(30px, 8vw, 55px)/1 "Space Grotesk Variable",sans-serif; }
+.mobile-nav a { display: flex; align-items: center; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); font: 500 clamp(30px, 8vw, 55px)/1 var(--font-display); }
 .mobile-nav a .mono { color: #ff3658; align-self: flex-start; }
 .mobile-nav a > svg { margin-left: auto; }
 .menu-signoff { margin: 30px 22px; font-size: 10px; letter-spacing: .13em; color: #a9a4ad; }

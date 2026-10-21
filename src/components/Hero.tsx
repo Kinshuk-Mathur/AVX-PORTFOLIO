@@ -37,6 +37,6 @@ export function Hero() {
         <a className="scroll-cue mono" href="#showreel"><span>SCROLL TO EXPLORE</span><ArrowDown size={20} /></a>
       </div>
     </div>
-    <div className="hero-bottom-line" />
+    <div className="hero-bottom-line" data-atmosphere-end />
   </section>;
 }

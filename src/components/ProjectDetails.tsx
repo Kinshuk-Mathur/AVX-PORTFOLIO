@@ -7,6 +7,7 @@ export function ProjectContent({ project, onPlay }: { project: Project; onPlay: 
   return <div className="project-detail">
       <span className="mono accent">{project.status === 'demo' ? 'STUDIO DEMO / EDITING SAMPLE' : 'SELECTED WORK'}</span>
       <h1>{project.title}</h1>
+      <span className="atmosphere-end" data-atmosphere-end aria-hidden="true" />
       {project.thumbnail && <img className="detail-cover" src={project.thumbnail} alt={`${project.title} project preview`} />}
       <div className="detail-body"><div><h2>The idea</h2><p>{project.description}</p>
         {project.highlights && <><h2>The details</h2><ul>{project.highlights.map(item => <li key={item}>{item}</li>)}</ul></>}

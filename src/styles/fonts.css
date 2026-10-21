@@ -1,9 +1,11 @@
+/* Use installed Coolvetica without redistributing a desktop-only font file.
+   A licensed WOFF2 can be added here later; Arial Black is the system fallback. */
 @font-face {
-  font-family: "Space Grotesk Variable";
+  font-family: "AVX Coolvetica";
   font-style: normal;
-  font-weight: 300 700;
+  font-weight: 400 900;
   font-display: swap;
-  src: url("@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+  src: local("Coolvetica"), local("Coolvetica Rg"), local("CoolveticaRg-Regular");
 }
 @font-face {
   font-family: "Inter Variable";

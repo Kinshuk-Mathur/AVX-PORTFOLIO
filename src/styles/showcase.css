@@ -31,7 +31,7 @@
 .film-fallback > button > span { position: absolute; inset: auto 0 0; display: flex; gap: 12px; align-items: center; background: #000c; padding: 18px; font-size: 12px; text-align: left; }
 .website-showcase { margin-top: 70px; }
 .website-stage { height: clamp(370px, 45vw, 620px); position: relative; background: #0b090d; overflow: hidden; border: 1px solid #ffffff0d; border-radius: 5px; }
-.website-stage-type { position: absolute; inset: 30px auto auto 28px; font: 600 clamp(42px, 7vw, 105px)/.95 "Space Grotesk Variable", sans-serif; letter-spacing: -.055em; color: #ffffff09; pointer-events: none; }
+.website-stage-type { position: absolute; inset: 30px auto auto 28px; font: 600 clamp(42px, 7vw, 105px)/.95 "AVX Coolvetica", "Arial Black", "Inter Variable", sans-serif; letter-spacing: -.055em; color: #ffffff09; pointer-events: none; }
 .website-stage-type span { color: #ff002c12; }
 .website-stage .depth-carousel__card { border: 1px solid #ffffff2b; padding-top: 21px; background: #161318; }
 .website-stage .depth-carousel__card::before { content: '●  ●  ●'; position: absolute; top: 4px; left: 10px; font-size: 7px; letter-spacing: 2px; color: #746d7b; }

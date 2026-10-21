@@ -2,7 +2,7 @@
 
 A custom React + TypeScript creative studio portfolio, built with Vite, Tailwind CSS,
 GSAP/ScrollTrigger, Lenis, Motion, Lucide, React Router, and the **official React Bits
-Grainient, FlexCarousel, and DepthCarousel**.
+Grainient, ShapeWaves, FlexCarousel, and DepthCarousel**.
 
 ## Run locally
 
@@ -28,33 +28,33 @@ or Git repository in the supplied workspace; the original assets are preserved.
 
 - `src/components/`: navigation, individual sections, project cards, accessible
   native dialogs, and custom video player.
-- `src/pages/`: dedicated Home, Work, Services, About, Contact and project pages.
+- `src/pages/`: dedicated Home, Video Editing, Websites, About, Contact and project pages.
 - `src/components/showcase/`: video and website carousel integrations with fallbacks.
 - `src/data/projects.ts`: portfolio collections, website screens and showreel configuration.
 - `src/data/video-sources.json`: source filenames, sample titles and poster timings.
 - `src/data/video-manifest.json`: generated browser-ready video metadata.
 - `src/data/routes.json`: page titles/descriptions shared by runtime and Netlify build.
+- `src/data/services.ts`: the five Home service cards and inquiry links.
 - `src/data/site.ts`: contact configuration, navigation, and verified social links.
 - `src/lib/`: URL/content validation, inquiry formatting, and media helpers.
 - `src/hooks/`: responsive preferences and coordinated scroll motion.
 - `src/styles/`: typography, design tokens, section layouts, responsive rules.
-- `src/vendor/grainient/` and `src/vendor/carousels/`: official source and licenses.
+- `src/vendor/grainient/`, `src/vendor/shape-waves/`, and `src/vendor/carousels/`: official source and licenses.
 - `public/media/`: optimized logo, posters, preview video, and social image.
 - `scripts/`: asset preparation, production asset selection, canonical SEO.
 - `tests/`: content boundary, unsafe URLs, optional media, and inquiry validation.
 
 ## Content and ownership
 
-`publishedProjects` starts empty. Only put actual, approved projects in that array.
-The public gallery currently shows a separately labeled **studio collection**:
+`publishedProjects` contains the owner-approved Kapalini (https://kapalini.com)
+and BrewEase (https://brewease.in) websites. Their WebP previews are screenshots
+captured from the live sites. Descriptions cover visible features, with no
+invented results, project dates, or testimonials.
 
-1. Eight supplied videos, clearly labeled studio demos or editing samples, including the original approved `AVX SAAS V1.mp4`.
-2. This AVX website, illustrated with actual Home, About, and Services screenshots. These are three screens of **one website**, not three invented projects.
-
-No client relationships, results, testimonials, awards, or team biographies are invented.
-The supplied Synapse promo appears only as a video editing sample; it is not represented
-as an AVX website case study. Published work and demonstration entries remain separate
-in data and are shown together in the filtered showcase.
+The separate demonstration collection contains eight supplied videos, labeled
+studio demos/editing samples, and AVX’s own website. The Synapse promo is a video
+sample, not a commissioned website case study. Website projects and video samples
+appear on separate routes; Home contains services and the labeled studio showreel.
 
 The showreel section currently plays the approved demo and explicitly says the
 full studio showreel is still forthcoming. Replace the `showreel` object and
@@ -154,24 +154,22 @@ The script retains an existing website screenshot. Replace
 `public/media/avx-website.webp` with a current, optimized website screenshot
 whenever the visual design materially changes.
 
-## Contact configuration — required before launch
+## Contact configuration
 
-No AVX email, phone number, or social profile was supplied. Nothing has been
-invented. Copy `.env.example` to `.env.local` for local configuration, or add
-these variables to the hosting environment. Restart/rebuild after changes.
-`VITE_` values are public client configuration, never secret credentials.
+The confirmed contact is **avxstudios27@gmail.com**, visible on Contact and in the
+footer. This is the default even when no environment variables are set.
+`VITE_CONTACT_EMAIL` can override it with another valid public address. The five
+service cards open an accessible dialog; their inquiry links preselect the service.
 
-The form has three explicit modes:
+Copy `.env.example` to `.env.local` for overrides, or configure hosting variables.
+Restart/rebuild after changes. `VITE_` values are public, never secret credentials.
 
-1. **No destination configured:** validates and downloads a plain-text project
-   brief. It clearly says nothing is submitted. Data is not stored or sent.
-2. **Email fallback:** set `VITE_CONTACT_EMAIL` to a confirmed AVX email address.
-   The form opens an encoded email draft. The visitor reviews and sends it from
-   their email app. Feedback never claims the email has been delivered.
-3. **Netlify Forms:** enable and verify form detection on Netlify, then set
-   `VITE_NETLIFY_FORMS_ENABLED=true` and redeploy. In production the form performs
-   a native POST with a honeypot, validation, and the `/thank-you/` success page.
-   Development mode never pretends to submit to Netlify.
+- **Default email mode:** validates the form and opens a prefilled email draft.
+  The visitor sends it through their email app. Feedback does not claim delivery.
+- **Optional Netlify Forms:** enable and verify form detection on Netlify, set
+  `VITE_NETLIFY_FORMS_ENABLED=true`, and redeploy. In production, the form uses
+  a native POST, honeypot, validation, and `/thank-you/` success page.
+  Development mode keeps the honest email fallback.
 
 The static registration form lives in `public/netlify-forms.html`. In Netlify,
 verify `avx-inquiry` is detected and configure notification recipients. Submit a
@@ -193,8 +191,10 @@ Add supplied, verified social links to `site.socials` in `src/data/site.ts`.
 5. Deploy, check image/video URLs, verify the inquiry route, and test submission.
 
 `netlify.toml` supplies security headers and immutable caching for hashed assets.
-The site has `/home`, `/work`, `/services`, `/about`, `/contact`, and `/work/:slug`.
-`/` redirects to `/home`. `scripts/seo.mjs` generates `_redirects` and individual
+The site has `/home`, `/video-editing`, `/websites`, `/about`, `/contact`, and
+`/work/:slug`. `/` redirects to `/home`; `/work` defaults to `/video-editing`.
+`/services` redirects to `/home#services`; there is no separate Services page.
+Older `/work/websites` and `/work/video-editing` URLs forward to the category pages. `scripts/seo.mjs` generates `_redirects` and individual
 HTML entry documents with page metadata. Exact page rewrites and the `/work/*`
 project route support direct loads. Unknown paths use `404.html`; there is no
 site-wide catch-all that hides missing assets or form errors.
@@ -207,11 +207,21 @@ The site is **prepared for deployment, not deployed to a Netlify account**.
 
 ## Motion and performance
 
-The Grainient shader is lazily loaded and mounted near the viewport, paused when
-hidden/offscreen, and capped at 1.5 device-pixel ratio. Its integration catches
-component load failures, hides unsuccessful WebGL initialization, and falls back
-to a static AVX gradient. Reduced motion skips the WebGL effect, smooth scrolling,
-hero animation, scroll reveals, hover playback, and magnetic movement.
+`RouteBackground` supplies one shared, fixed atmosphere across the page. All
+routes use the official Grainient with the AVX five-color palette, except
+`/websites`, which mounts official Shape Waves in AVX red and unmounts Grainient.
+Both are lazy-loaded with DPR capped at 1.5. Their render loops pause when hidden.
+Reduced motion and GPU failures use readable static fallbacks, without preventing
+navigation or access to projects. Shape Waves uses WebGPU; Grainient uses WebGL.
+
+VGPU is pinned to the React Bits-compatible 0.3.x series. The transitive MCP SDK
+is overridden to patched 2.3.1+; it is not included in the browser runtime. Avoid
+upgrading VGPU to 0.6 without adapting the upstream renderer’s breaking APIs.
+
+Reduced motion also skips smooth scrolling, hero/scroll reveals, hover playback,
+and magnetic movement. The Home services use original AVX compositions with
+supplied editing stills and the actual Kapalini screenshot. All five services
+are accessible through keyboard- and touch-operable dialogs.
 
 GSAP owns hero/scroll transforms; Motion owns buttons, cards, and dialog content.
 Lenis runs only on pointer-fine devices with normal motion preferences and uses
@@ -226,15 +236,15 @@ embeds are installed.
 ## Verification
 
 - TypeScript and optimized Vite production build pass.
-- 24 automated tests cover unsafe URLs, missing optional fields, duplicate
+- 28 automated tests cover unsafe URLs, missing optional fields, duplicate
   identifiers, video link classification, inquiry validation, asset packaging,
   generated media availability, route metadata, and Netlify rewrite generation.
 - Browser layouts checked at 1440, 1024, 768, 390, and 320 CSS pixels. No page-width
   overflow was observed.
-- Browser interactions checked: work filters, website details, video playback,
+- Browser interactions checked: category routes, service dialogs and inquiry selection, website details, video playback,
   pause/mute, Escape-to-close, and mobile navigation.
-- Browser testing exposed and corrected StrictMode WebGL cleanup and media
-  metadata timing issues.
+- Official Shape Waves verified rendering in the production build (WebGPU ready),
+  with Grainient unmounted on `/websites`.
 - QA screenshots are in `output/qa/`; current website carousel screenshots are in `public/media/website-*.webp`.
 
 No Lighthouse score or cross-device 60 FPS result is claimed. Netlify delivery,
@@ -260,13 +270,16 @@ WebGL failure uses an accessible horizontal poster list. No stock sample images
 from the vendor component are included.
 
 `WebsiteShowcase` uses the official GSAP DepthCarousel with real screenshot cards.
-Its controls and indicators select a screen, and “Explore this page” opens that
-route. Add verified website projects to `publishedProjects`; they receive their
-own screenshot card and external live link. The three AVX page views are configured
-in `websiteScreens`. Replace `public/media/website-home.webp`, `website-about.webp`
-and `website-services.webp` with current screenshots after redesigns.
+Its controls and indicators select a project. “Visit Website” opens a live site
+safely in a new tab; “View project” opens `/work/:slug`. Each project receives one
+card. Add approved projects and screenshots in `publishedProjects`; the AVX Home
+and About gallery screens stay in `websiteScreens`. Replace screenshots after
+redesigns. No retired Services screenshot is shown.
 
 Neither carousel captures vertical wheel scrolling or auto-advances. All full
 videos remain unloaded until selected. FlexCarousel caps DPR at 1.5 and pauses
 when offscreen. Scoped vendor adaptations and upstream URLs are documented in
 `src/vendor/carousels/README.md`.
+
+Shape Waves source and integration notes are in `src/vendor/shape-waves/README.md`.
+The official component is from https://reactbits.dev/backgrounds/shape-waves.

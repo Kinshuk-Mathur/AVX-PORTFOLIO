@@ -1,5 +1,5 @@
 export type Inquiry = { name: string; email: string; service: string; details: string; budget: string };
-export const inquiryServices = ['Video Editing', 'Website Development', 'Both'] as const;
+export const inquiryServices = ['Video Editing', 'Content Clipping', 'Website Development', 'Custom Web Software', 'Brand & Creator Partnerships', 'Both'] as const;
 
 export function readInquiry(data: FormData): Inquiry {
   const read = (key: string) => String(data.get(key) ?? '').trim();

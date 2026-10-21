@@ -8,6 +8,7 @@ import { Contact } from '../components/Contact';
 import { PageCTA } from '../components/PageCTA';
 import { usePlayer } from '../components/PlayerProvider';
 import { showreel } from '../data/projects';
+import type { ProjectCategory } from '../lib/content';
 
 export function HomePage() {
   const play = usePlayer();
@@ -15,17 +16,15 @@ export function HomePage() {
     <Hero />
     <div className="discipline-strip" aria-label="Our disciplines"><span>VIDEO EDITING</span><i>✳</i><span>MOTION DESIGN</span><i>✳</i><span>WEB EXPERIENCES</span><i>✳</i><span>CREATIVE PRODUCTION</span></div>
     <Showreel onPlay={() => play({ title: showreel.title, src: showreel.video, poster: showreel.poster })} />
-    <SelectedWork />
-    <div className="studio-teaser page-gutter section-pad"><span className="mono accent">THE MINDS BEHIND THE MOTION</span><h2>A creative studio.<br />A different perspective.</h2><p>We bring art, visual craft, and digital experiences together.</p><Link className="text-link" to="/about">Get to know AVX ↗</Link><Link className="text-link" to="/services">Explore our services ↗</Link></div>
+    <Services />
+    <Process />
+    <div className="studio-teaser page-gutter section-pad"><span className="mono accent">THE MINDS BEHIND THE MOTION</span><h2>A creative studio.<br />A different perspective.</h2><p>We bring art, visual craft, and digital experiences together.</p><Link className="text-link" to="/about">Get to know AVX ↗</Link><Link className="text-link" to="/contact">Build something with us ↗</Link></div>
     <PageCTA />
   </>;
 }
 
-export function WorkPage() {
-  return <div className="interior-page"><SelectedWork primary /><PageCTA /></div>;
-}
-export function ServicesPage() {
-  return <div className="interior-page"><Services primary /><Process /><PageCTA /></div>;
+export function WorkPage({ category }: { category: ProjectCategory }) {
+  return <div className="interior-page"><SelectedWork category={category} /><PageCTA /></div>;
 }
 export function AboutPage() {
   return <div className="interior-page"><About primary /><BrandStatement /><PageCTA /></div>;

@@ -34,6 +34,12 @@ describe('Netlify page entries', () => {
     const redirects = readFileSync(join(directory, 'dist/_redirects'), 'utf8');
     expect(redirects).toContain('/ /home 301');
     expect(redirects).toContain('/about /pages/about.html 200');
+    expect(redirects).toContain('/video-editing /pages/video-editing.html 200');
+    expect(redirects).toContain('/websites /pages/websites.html 200');
+    expect(redirects).toContain('/work /video-editing 301');
+    expect(redirects).toContain('/services /home#services 301');
+    expect(redirects.indexOf('/work/websites /websites 301')).toBeLessThan(redirects.indexOf('/work/*'));
+    expect(routes.some(route => route.path === '/services')).toBe(false);
     expect(redirects).toContain('/work/* /index.html 200');
     expect(redirects.split('\n').some(line => line.startsWith('/* '))).toBe(false);
   });

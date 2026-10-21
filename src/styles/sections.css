@@ -96,43 +96,6 @@
 .media-placeholder small { font-size: 8px; letter-spacing: .1em; }
 
 /* Service artworks are original, code-native demonstrations of the disciplines. */
-.service-heading { margin-bottom: 45px; }
-.service-heading .display-heading { font-size: clamp(42px, 6.4vw, 101px); }
-.service-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.service-panel { position: relative; isolation: isolate; min-height: 635px; overflow: hidden; border: 1px solid #ffffff19; background: #120d10; border-radius: 4px; padding: 28px 34px; }
-.service-top { display: flex; justify-content: space-between; align-items: center; font-size: 9px; letter-spacing: .09em; color: #e0d7e2; }
-.service-art { position: absolute; z-index: -1; inset: 0; opacity: .65; transition: transform .7s, opacity .7s; }
-.service-panel:hover .service-art { opacity: 1; transform: scale(1.035); }
-.motion-art { background: radial-gradient(ellipse at 85% 10%,#9f1930 0%,#31111a 40%,transparent 70%); }
-.motion-type { position: absolute; right: -20px; top: 90px; transform: rotate(-12deg); font: 600 clamp(60px, 7.7vw, 115px)/.85 "Space Grotesk Variable",sans-serif; letter-spacing: -.08em; color: #7d3743; opacity: .8; }
-.motion-type > span { display: block; }
-.motion-type i { font-style: normal; color: #ff002c; }
-.edit-timeline { position: absolute; top: 265px; left: 8%; width: 95%; height: 80px; transform: rotate(-12deg); opacity: .6; border-top: 1px solid #ff526f50; padding-top: 13px; }
-.edit-timeline > span { display: block; width: 56%; height: 11px; background: #b93349; margin: 3px 0; border: 1px solid #ff647e; border-radius: 2px; }
-.edit-timeline > span:nth-child(2) { margin-left: 20%; width: 50%; background: #7b2334; }
-.edit-timeline > span:nth-child(3) { margin-left: 45%; width: 40%; }
-.edit-timeline > span:nth-child(4) { margin-left: 7%; width: 60%; background: #661b30; }
-.edit-timeline > i { position: absolute; left: 60%; top: 0; height: 100px; width: 1px; background: #ff607d; }
-.service-content { padding-top: 165px; }
-.service-content h3 { font-size: clamp(44px, 5.7vw, 88px); line-height: .96; letter-spacing: -.065em; }
-.service-content h4 { font-family: "Inter Variable",sans-serif; font-size: 12px; letter-spacing: 0; font-weight: 500; margin-top: 26px; }
-.service-content > p { font-size: 12px; color: #bdb2bf; line-height: 1.75; max-width: 340px; margin-top: 10px; }
-.capabilities { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 22px; max-width: 410px; }
-.capabilities li { font-size: 9px; border: 1px solid #ffffff26; border-radius: 30px; padding: 7px 10px; color: #dad3dd; }
-.service-link { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ffffff25; margin-top: 31px; padding-top: 19px; font-size: 12px; }
-.service-link svg { transition: transform .3s; }
-.service-link:hover svg { transform: translate(4px,-4px); }
-.service-digital { background: #101014; }
-.web-art { background: radial-gradient(ellipse at 90% 0,#29232e,transparent 65%); }
-.wire-window { width: 73%; position: absolute; right: -14px; top: 100px; height: 213px; transform: perspective(700px) rotateY(-20deg) rotateX(12deg) rotate(-9deg); border: 1px solid #88818e; border-radius: 5px; background: #1e1b23; padding: 14px; color: #e4d9e8; opacity: .7; }
-.wire-bar { display: flex; gap: 4px; border-bottom: 1px solid #88818e; padding-bottom: 10px; }
-.wire-bar i { width: 4px; height: 4px; background: #a69cab; border-radius: 100%; }
-.wire-type { font: 500 29px/.95 "Space Grotesk Variable",sans-serif; letter-spacing: -.05em; margin-top: 17px; }
-.wire-type span { color: var(--red); }
-.wire-lines { display: flex; gap: 6px; height: 39px; margin-top: 13px; width: 60%; }
-.wire-lines > i { border: 1px solid #625a6b; flex: 1; }
-.wire-window > svg { position: absolute; right: 22px; top: 73px; color: #ff002c; }
-
 .statement { border-block: 1px solid var(--line); background: #080708; position: relative; }
 .statement .section-label { margin-bottom: 55px; }
 .statement-type { font-family: "Space Grotesk Variable",sans-serif; font-size: clamp(44px, 8.2vw, 132px); line-height: 1.04; font-weight: 500; letter-spacing: -.065em; }

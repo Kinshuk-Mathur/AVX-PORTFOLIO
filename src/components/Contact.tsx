@@ -1,8 +1,8 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Check, Download } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import { site } from '../data/site';
 import { formatInquiry, inquiryServices, readInquiry } from '../lib/inquiry';
-import { GrainientSurface } from './GrainientSurface';
 import { MagneticLink, SectionLabel } from './UI';
 
 export function Contact({ primary = false }: { primary?: boolean } = {}) {
@@ -10,6 +10,9 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
   const form = useRef<HTMLFormElement>(null);
   const [feedback, setFeedback] = useState('');
   const [error, setError] = useState(false);
+  const [params] = useSearchParams();
+  const requestedService = params.get('service');
+  const initialService = inquiryServices.find(service => service === requestedService) ?? '';
   const netlify = site.netlifyForms && import.meta.env.PROD;
   const mode = netlify ? 'netlify' : site.contactEmail ? 'email' : 'brief';
   const downloadBrief = (text: string) => {
@@ -46,13 +49,12 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
   };
 
   return <section className="contact section-pad page-gutter" id="contact" aria-labelledby="contact-title">
-    <GrainientSurface restrained />
     <div className="contact-content">
       <SectionLabel number="06">LET’S CREATE TOGETHER</SectionLabel>
       <div className="contact-heading" data-reveal><Heading className="display-heading" id="contact-title">HAVE SOMETHING<br />IN MIND<span className="accent">?</span></Heading>
         <p className="contact-bigline">LET’S MAKE IT REAL<span className="accent">.</span><ArrowUpRight strokeWidth={1.2} /></p></div>
       <div className="contact-grid">
-        <div className="contact-intro" data-reveal><p>Have a video, a brand, or a website idea? Tell us what you’re imagining.</p>
+        <div className="contact-intro" data-reveal><p>A video, a website, custom software, or a brand collaboration. Tell us what you’re imagining.</p>
           <MagneticLink href="#inquiry" className="button-white">Start a Project</MagneticLink>
           {site.contactEmail && <a href={`mailto:${site.contactEmail}`} className="contact-email">{site.contactEmail}<ArrowUpRight size={17} /></a>}
           <div className="contact-note"><span className="status-dot" /><p>{mode === 'brief' ? 'A good project starts with a good brief.' : 'Your next idea deserves a conversation.'}</p></div>
@@ -64,7 +66,7 @@ export function Contact({ primary = false }: { primary?: boolean } = {}) {
             <label>Your name <span>*</span><input name="name" autoComplete="name" placeholder="How should we call you?" required maxLength={100} /></label>
             <label>Email address <span>*</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required maxLength={254} /></label>
           </div>
-          <div className="form-row"><label>What are we creating? <span>*</span><select name="service" required defaultValue=""><option value="" disabled>Select a service</option>{inquiryServices.map(service => <option key={service}>{service}</option>)}</select></label>
+          <div className="form-row"><label>What are we creating? <span>*</span><select name="service" required defaultValue={initialService} key={initialService}><option value="" disabled>Select a service</option>{inquiryServices.map(service => <option key={service}>{service}</option>)}</select></label>
             <label>Budget <small>(optional)</small><input name="budget" placeholder="A range is absolutely fine" maxLength={100} /></label></div>
           <label>A little about your idea <span>*</span><textarea name="details" rows={3} placeholder="The idea, the ambition, the details. We’re listening." required minLength={10} maxLength={3000} /></label>
           <p id="submission-note" className="submission-note">{mode === 'netlify'

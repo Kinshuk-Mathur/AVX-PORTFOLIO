@@ -108,8 +108,8 @@ main:focus { outline: none; }
 .project-detail h2 { font-size: clamp(36px, 6vw, 74px); line-height: 1; letter-spacing: -.055em; margin: 17px 0 35px; }
 .detail-cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top; background: #080808; border-radius: 4px; }
 .detail-body { display: grid; grid-template-columns: 1.6fr 1fr; gap: 50px; margin-top: 35px; }
-.detail-body h3 { font-size: 21px; margin: 0 0 14px; }
-.detail-body h3:not(:first-child) { margin-top: 25px; }
+.detail-body h2 { font-size: 21px; margin: 0 0 14px; }
+.detail-body h2:not(:first-child) { margin-top: 25px; }
 .detail-body p, .detail-body li, .detail-body dd { font-size: 14px; line-height: 1.8; color: #b9b4bf; }
 .detail-body li { list-style: disc; margin-left: 18px; padding-left: 4px; }
 .detail-body dt { color: #f8f6fa; font-size: 12px; margin-bottom: 10px; }

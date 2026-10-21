@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import routes from '../data/routes.json';
 import { allProjects } from '../data/projects';
+import { legacySectionTarget } from '../lib/routes';
 
 export function RouteEffects() {
   const location = useLocation();
@@ -13,13 +14,9 @@ export function RouteEffects() {
       return;
     }
     // Preserve older shared section and project links.
-    const legacy = location.hash.slice(1);
-    if (legacy.startsWith('project/')) {
-      navigate(`/work/${legacy.slice(8)}`, { replace: true });
-      return;
-    }
-    if (['work', 'services', 'about', 'contact', 'home'].includes(legacy)) {
-      navigate(`/${legacy}`, { replace: true });
+    const legacy = legacySectionTarget(location.hash);
+    if (legacy && legacy !== `${location.pathname}${location.hash}`) {
+      navigate(legacy, { replace: true });
       return;
     }
     const route = routes.find(item => item.path === location.pathname);

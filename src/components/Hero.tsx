@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useLayoutEffect, useRef } from 'react';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
-import { GrainientSurface } from './GrainientSurface';
 import { MagneticLink } from './UI';
 
 export function Hero() {
@@ -21,7 +20,6 @@ export function Hero() {
     return () => media.revert();
   }, []);
   return <section className="hero" id="home" ref={root} aria-labelledby="hero-title">
-    <GrainientSurface />
     <div className="hero-content page-gutter">
       <div className="hero-eyebrow"><span className="status-dot" />AVX STUDIOS — CREATIVE PRODUCTION<span className="hero-edition">INDEPENDENT BY DESIGN.</span></div>
       <div className="hero-main">
@@ -35,7 +33,7 @@ export function Hero() {
         </div>
       </div>
       <div className="hero-bottom">
-        <div className="hero-actions"><MagneticLink href="/work" className="button-white">Explore Our Work</MagneticLink><Link to="/contact" className="text-link">Start a Project <ArrowUpRight size={17} /></Link></div>
+        <div className="hero-actions"><MagneticLink href="/video-editing" className="button-white">Explore Our Work</MagneticLink><Link to="/contact" className="text-link">Start a Project <ArrowUpRight size={17} /></Link></div>
         <a className="scroll-cue mono" href="#showreel"><span>SCROLL TO EXPLORE</span><ArrowDown size={20} /></a>
       </div>
     </div>

@@ -7,6 +7,8 @@ import './styles/sections.css';
 import './styles/responsive.css';
 import './styles/pages.css';
 import './styles/showcase.css';
+import './styles/capabilities.css';
+import './styles/atmosphere.css';
 import App from './App';
 
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);

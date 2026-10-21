@@ -5,14 +5,16 @@ import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { PlayerProvider } from './components/PlayerProvider';
 import { RouteEffects } from './components/RouteEffects';
-import { HomePage, AboutPage, ServicesPage, ContactPage, WorkPage, NotFoundPage } from './pages/StudioPages';
+import { RouteBackground } from './components/RouteBackground';
+import { HomePage, AboutPage, ContactPage, WorkPage, NotFoundPage } from './pages/StudioPages';
 import { ProjectPage } from './pages/ProjectPage';
 import { useScrollMotion } from './hooks/useScrollMotion';
 
 function Layout() {
   const root = useRef<HTMLDivElement>(null);
   useScrollMotion(root);
-  return <div ref={root} id="top">
+  return <div ref={root} id="top" className="site-shell">
+    <RouteBackground />
     <RouteEffects />
     <a className="skip-link" href="#main">Skip to content</a>
     <Navigation />
@@ -32,9 +34,13 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<HomeRedirect />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/work" element={<WorkPage />} />
+        <Route path="/work" element={<Navigate to="/video-editing" replace />} />
+        <Route path="/video-editing" element={<WorkPage category="Video Editing" />} />
+        <Route path="/websites" element={<WorkPage category="Websites" />} />
+        <Route path="/work/video-editing" element={<Navigate to="/video-editing" replace />} />
+        <Route path="/work/websites" element={<Navigate to="/websites" replace />} />
         <Route path="/work/:slug" element={<ProjectPage />} />
-        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services" element={<Navigate to="/home#services" replace />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFoundPage />} />

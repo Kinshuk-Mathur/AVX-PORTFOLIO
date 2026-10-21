@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useRef, type PropsWithChildren, type MouseEvent } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
@@ -16,6 +16,8 @@ export function SectionLabel({ number, children }: PropsWithChildren<{ number?: 
 
 export function MagneticLink({ children, href, className = '' }: PropsWithChildren<{ href: string; className?: string }>) {
   const ref = useRef<HTMLAnchorElement>(null);
+  const location = useLocation();
+  const target = href.startsWith('#') ? { pathname: location.pathname, search: location.search, hash: href } : href;
   const fine = useMediaQuery('(pointer: fine)');
   const reduce = useReducedMotion();
   const x = useMotionValue(0), y = useMotionValue(0);
@@ -27,7 +29,7 @@ export function MagneticLink({ children, href, className = '' }: PropsWithChildr
     x.set((event.clientX - rect.left - rect.width / 2) * 0.12);
     y.set((event.clientY - rect.top - rect.height / 2) * 0.16);
   };
-  return <MotionLink ref={ref} to={href} className={`button ${className}`} style={{ x: sx, y: sy }}
+  return <MotionLink ref={ref} to={target} className={`button ${className}`} style={{ x: sx, y: sy }}
     onMouseMove={move} onMouseLeave={() => { x.set(0); y.set(0); }}
     onBlur={() => { x.set(0); y.set(0); }}>
     <span>{children}</span><ArrowUpRight size={18} aria-hidden="true" />

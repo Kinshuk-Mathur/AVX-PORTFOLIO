@@ -10,7 +10,7 @@ export function ProjectPage() {
   const play = usePlayer();
   if (!project) return <NotFoundPage />;
   return <article className="project-page interior-page page-gutter section-pad">
-    <Link to="/work" className="text-link">← Back to all work</Link>
+    <Link to={project.category === 'Websites' ? '/websites' : '/video-editing'} className="text-link">← Back to {project.category.toLowerCase()}</Link>
     <ProjectContent project={project} onPlay={value => {
       if (value.fullVideoUrl) play({ title: value.title, src: value.fullVideoUrl, poster: value.thumbnail });
     }} />

@@ -13,9 +13,6 @@
   .hero-arrow { height: 48px; width: 48px; margin-bottom: 18px; }
   .hero-aside > .mono { font-size: 8px; margin-top: 16px; }
   .hero-content { padding-top: 137px; padding-bottom: 40px; }
-  .service-panel { padding: 24px; }
-  .service-content { padding-top: 150px; }
-  .service-content > p { font-size: 11px; }
   .capabilities li { font-size: 8px; padding: 7px 9px; }
   .contact-grid { gap: 60px; }
   .footer-main { gap: 24px; }
@@ -35,11 +32,6 @@
   .project-grid { gap: 22px; }
   .project-visual { height: 290px; }
   .project-slot:nth-child(even) { margin-top: 70px; }
-  .service-panel { min-height: 635px; padding: 23px; }
-  .service-content h3 { font-size: 49px; }
-  .service-content h4 { font-size: 11px; min-height: 28px; }
-  .service-content > p { font-size: 12px; }
-  .service-content { padding-top: 135px; }
   .wire-window { top: 100px; height: 175px; }
   .wire-type { font-size: 21px; }
   .wire-window > svg { width: 35px; }
@@ -123,16 +115,6 @@
   .work-end { margin-top: 38px; flex-direction: column; align-items: flex-start; gap: 7px; }
   .work-end > span { font-size: 8px; }
   .work-end .text-link { font-size: 11px; }
-  .service-heading { display: block; margin-bottom: 31px; }
-  .service-heading .display-heading { font-size: 11vw; }
-  .service-heading > p { margin-top: 21px; font-size: 13px; }
-  .service-panels { grid-template-columns: minmax(0,1fr); gap: 20px; }
-  .service-panel { min-height: 600px; padding: 24px; }
-  .service-top { font-size: 8px; }
-  .service-content { padding-top: 145px; }
-  .service-content h3 { font-size: 60px; }
-  .service-content h4 { font-size: 12px; min-height: 0; }
-  .service-content > p { font-size: 12px; }
   .motion-type { font-size: 85px; top: 80px; }
   .edit-timeline { top: 250px; }
   .wire-window { top: 85px; height: 200px; }
@@ -214,9 +196,6 @@
   .film-label { font-size: 7px; }
   .work-filters button { font-size: 9px; padding-inline: 12px; }
   .project-meta h3 { font-size: 24px; }
-  .service-panel { padding: 22px; }
-  .service-content h3 { font-size: 53px; }
-  .service-content > p { font-size: 11px; }
   .capabilities li { font-size: 8px; }
   .statement-type { font-size: 8.8vw; }
   .player-time { font-size: 8px; }

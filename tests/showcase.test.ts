@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { allProjects, videoSamples, websiteScreens } from '../src/data/projects';
+import { allProjects, publishedProjects, videoSamples, websiteScreens } from '../src/data/projects';
 import { validateProjects } from '../src/lib/content';
 
 describe('deployable showcase collection', () => {
@@ -29,7 +29,16 @@ describe('deployable showcase collection', () => {
   it('uses real screenshots for the AVX website and valid internal page targets', () => {
     for (const screen of websiteScreens) {
       expect(existsSync(join('public', screen.image))).toBe(true);
-      expect(['/home', '/about', '/services']).toContain(screen.url);
+      expect(['/home', '/about']).toContain(screen.url);
     }
   });
+  it('includes the two approved live websites with deployable screenshots', () => {
+    expect(publishedProjects.map(project => project.websiteUrl)).toEqual(['https://kapalini.com/', 'https://brewease.in/']);
+    for (const project of publishedProjects) {
+      expect(project.category).toBe('Websites');
+      expect(project.status).toBe('published');
+      expect(existsSync(join('public', project.thumbnail!))).toBe(true);
+    }
+  });
+
 });

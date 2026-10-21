@@ -25,6 +25,14 @@ for (const route of routes) {
 // Exact page rewrites keep missing assets and unknown URLs as real 404 responses.
 await writeFile('dist/_redirects', [
   '/ /home 301',
+  '/work /video-editing 301',
+  '/work/ /video-editing 301!',
+  '/services /home#services 301',
+  '/services/ /home#services 301!',
+  '/work/video-editing /video-editing 301',
+  '/work/websites /websites 301',
+  '/work/video-editing/ /video-editing 301!',
+  '/work/websites/ /websites 301!',
   ...routes.flatMap(route => [`${route.path}/ ${route.path} 301!`, `${route.path} /pages${route.path}.html 200`]),
   '/work/* /index.html 200',
 ].join('\n') + '\n');

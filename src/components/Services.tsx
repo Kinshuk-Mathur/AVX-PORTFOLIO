@@ -1,36 +1,37 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Braces, Film } from 'lucide-react';
+import { ArrowUpRight, Plus } from 'lucide-react';
+import { services, type Service } from '../data/services';
+import { Modal } from './Modal';
 import { SectionLabel } from './UI';
+import { ServiceVisual } from './ServiceVisual';
 
-const videoSkills = ['Reels & Shorts', 'YouTube Videos', 'Vlogs', 'Motion Graphics', 'Creator Content', 'Video Clipping'];
-const webSkills = ['Creative Landing Pages', 'Business Websites', 'Portfolio Websites', 'E-commerce Websites', 'Interactive Web Experiences'];
-
-export function Services({ primary = false }: { primary?: boolean } = {}) {
-  const Heading = primary ? 'h1' : 'h2';
-  return <section id="services" className="services section-pad page-gutter" aria-labelledby="services-title">
-    <SectionLabel number="03">OUR CAPABILITIES</SectionLabel>
-    <div className="heading-row service-heading" data-reveal><Heading className="display-heading" id="services-title">WHAT WE DO<span className="accent">.</span></Heading><p>From the first idea<br />to the final frame.</p></div>
-    <div className="service-panels">
-      <article className="service-panel service-motion" data-reveal>
-        <div className="service-art motion-art" aria-hidden="true"><div className="motion-type"><span>MAKE</span><span>IT <i>MOVE.</i></span></div>
-          <div className="edit-timeline"><span /><span /><span /><span /><i /></div>
-        </div>
-        <div className="service-top"><span>01 / VIDEO & MOTION</span><Film size={21} strokeWidth={1.3} /></div>
-        <div className="service-content"><h3>Made to<br />move you.</h3><h4>Video Editing & Motion</h4>
-          <p>Scroll-stopping visuals, seamless edits, and storytelling designed to keep people watching.</p>
-          <ul className="capabilities">{videoSkills.map(skill => <li key={skill}>{skill}</li>)}</ul>
-          <Link to="/contact" className="service-link">Let’s talk video <ArrowUpRight size={21} /></Link>
-        </div>
-      </article>
-      <article className="service-panel service-digital" data-reveal>
-        <div className="service-art web-art" aria-hidden="true"><div className="wire-window"><div className="wire-bar"><i /><i /><i /></div><div className="wire-type">BEYOND<br /><span>THE SCREEN.</span></div><div className="wire-lines"><i /><i /><i /></div><ArrowUpRight size={55} strokeWidth={1} /></div></div>
-        <div className="service-top"><span>02 / DESIGN & DEVELOPMENT</span><Braces size={22} strokeWidth={1.3} /></div>
-        <div className="service-content"><h3>Built to<br />stand apart.</h3><h4>Website Design & Development</h4>
-          <p>Modern digital experiences that combine beautiful design, thoughtful interaction, and reliable development.</p>
-          <ul className="capabilities">{webSkills.map(skill => <li key={skill}>{skill}</li>)}</ul>
-          <Link to="/contact" className="service-link">Let’s talk websites <ArrowUpRight size={21} /></Link>
-        </div>
-      </article>
+export function Services() {
+  const [selected, setSelected] = useState<Service | null>(null);
+  return <section id="services" className="capabilities-section section-pad page-gutter" aria-labelledby="services-title">
+    <SectionLabel number="02">WHAT WE BRING TO THE TABLE</SectionLabel>
+    <div className="capabilities-heading" data-reveal><span className="capabilities-pill">OUR SERVICES</span>
+      <h2 id="services-title">Big ideas.<br className="mobile-break" /> <span>Meet your makers.</span></h2>
+      <p>From the first cut to the next big collaboration.<br />A creative partner, from idea to impact.</p>
     </div>
+    <div className="capabilities-grid">
+      {services.map((service, index) => <article key={service.id} className={`cap-card cap-${service.id}`} data-reveal>
+        <ServiceVisual type={service.id} />
+        <button className="cap-card-trigger" onClick={() => setSelected(service)} aria-label={`Explore ${service.title}`} aria-haspopup="dialog">
+          <span className="cap-index mono">0{index + 1} / AVX</span><span className="cap-expand"><Plus size={23} strokeWidth={1.3} /></span>
+          <span className="cap-copy"><span className="mono cap-eyebrow">{service.eyebrow}</span><span className="cap-title">{service.title}</span>
+            <span className="cap-summary">{service.capabilities.slice(0, 3).join(' · ')}</span><span className="cap-discover">Explore service <ArrowUpRight size={17} /></span>
+          </span>
+        </button>
+      </article>)}
+    </div>
+    <div className="capabilities-end"><p>One idea. The right mix of creative, digital, and connection.</p><Link to="/contact" className="text-link">Find your starting point <ArrowUpRight size={18} /></Link></div>
+    {selected && <Modal title={selected.title} className="service-modal" onClose={() => setSelected(null)}>
+      <div className="service-detail"><span className="mono accent">{selected.eyebrow}</span><h2>{selected.title}</h2><p>{selected.description}</p>
+        <ul>{selected.capabilities.map(item => <li key={item}>{item}</li>)}</ul>
+        <div className="service-detail-actions"><Link to={`/contact?service=${encodeURIComponent(selected.inquiry)}`} onClick={() => setSelected(null)} className="button button-white">Let’s make it happen <ArrowUpRight size={18} /></Link>
+          {selected.workPath && <Link to={selected.workPath} onClick={() => setSelected(null)} className="text-link">Explore the work <ArrowUpRight size={18} /></Link>}</div>
+      </div>
+    </Modal>}
   </section>;
 }
